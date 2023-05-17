@@ -41,9 +41,8 @@
       .chat-area {
         /*   border: 1px solid #ccc; */
         /* background: white; */
-        /* height: calc(100vh - 7rem); */
-        /* height: calc(100dvh - 7rem); */
-        height: 100%;
+        height: calc(100vh - 7rem);
+        height: calc(100dvh - 7rem);
         padding: 1em;
         overflow: auto;
         /* max-width: 350px; */
@@ -297,9 +296,9 @@
         </v-btn>
       </template>
       <template v-if="app=='chat'">
-        <v-container style="padding: 0; background-color: #fff; height: 100%;">
+        <v-container style="padding: 0; background-color: #fff">
           <v-row
-            :style="'margin: 0 ;width: 100%; position: fixed; top: 0; background-color: ' + siteSetting.bgColor"
+            :style="'margin: 0 ;background-color: ' + siteSetting.bgColor"
             class="chat-messagae"
           >
             <v-spacer></v-spacer>
@@ -345,7 +344,7 @@
           <section
             ref="chatArea"
             class="chat-area"
-            :style="'background-color:rgba(240,240,240,0.5); margin:3.5rem 0 3.5rem 0; width:' + chatWidth + ';height: 100%;'"
+            :style="'background-color:rgba(240,240,240,0.5);width:' + chatWidth + ';'"
           >
             <div
               class="message"
@@ -363,7 +362,7 @@
               <!-- {{ message.body }} -->
             </p>
           </section>
-          <v-row style="margin: 0; width: 100%; position: fixed; bottom: 0;" class="chat-messagae">
+          <v-row style="margin: 0" class="chat-messagae">
             <input
               type="text"
               name=""
@@ -374,7 +373,6 @@
                 background-color: #fff;
                 padding: 0 1.5rem;
                 width: calc(100% - 40px);
-                height: 100%;
               "
               @keyup.enter="sendMessage('out')"
             />
@@ -840,9 +838,8 @@
             if (this.isSmartPhone()) {
               style = {
                 width: '100vw',
-                height: '100%',
-                // height: '100vh',
-                // height: '100dvh',
+                height: '100vh',
+                height: '100dvh',
                 bottom: '0px',
                 right: '0px',
                 'border-radius': '10px',
