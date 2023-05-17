@@ -1,0 +1,1030 @@
+<html>
+  <head>
+    <title>Online Chat</title>
+    <meta http-equiv="content-type" charset="UTF-8" />
+    <link rel="icon" href="https://kllc.github.io/repo/img/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <style>
+      html,
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+        background: transparent;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .chat-title {
+        height: 3rem;
+      }
+      .chat-area {
+        /*   border: 1px solid #ccc; */
+        /* background: white; */
+        /* height: calc(100vh - 7rem); */
+        /* height: calc(100dvh - 7rem); */
+        height: 100%;
+        padding: 1em;
+        overflow: auto;
+        /* max-width: 350px; */
+        /* margin: 0 auto 2em auto; */
+        /* box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3); */
+      }
+      .chat-area li {
+        /* list-style-position: inside; */
+        list-style-position: outside;
+        margin-left: 1em;
+      }
+      .chat-messagae {
+        height: 3.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .message {
+        width: 85%;
+        border-radius: 10px;
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+        font-size: 0.8em;
+      }
+      .message-out {
+        color: white;
+        margin-left: 15%;
+      }
+      .message-in {
+        background: #fff;
+        color: black;
+        border: 1px solid var(--bg-color);
+      }
+
+      .yureru-js {
+        animation: yureru-js 3s infinite;
+      }
+      @keyframes yureru-js {
+        1% {
+          transform: translate(0px, 0px);
+        }
+        2% {
+          transform: translate(1px, 1px);
+        }
+        3% {
+          transform: translate(1px, -1px);
+        }
+        4% {
+          transform: translate(-1px, -1px);
+        }
+        5% {
+          transform: translate(-1px, 1px);
+        }
+        100% {
+          transform: translate(0px, 0px);
+        }
+      }
+
+      /* ボタンの波紋 */
+      .pulse-btn::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        border: var(--border-size) solid var(--bg-color);
+        border-radius: 50%;
+        box-sizing: border-box;
+        pointer-events: none;
+        animation: pulsate 3s linear infinite;
+      }
+      /* Chat内のボタン*/
+      .button {
+        background-color: white;
+        border-color: rgba(144, 144, 144, 0.3);
+        color: #444 !important;
+        border-radius: 4px;
+        border-style: solid;
+        border-width: 1px;
+        cursor: pointer;
+        height: 1.5em;
+        letter-spacing: 0.07em;
+        line-height: 3em;
+        font-weight: 400;
+        overflow: hidden;
+        padding: 3px 1em 3px 1em;
+        margin-left: 1em;
+        text-align: center;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.8em;
+      }
+
+      /* ボタンの波紋が広がっていくアニメーション*/
+      @keyframes pulsate {
+        0% {
+          /* transform: scale(1); */
+          transform: perspective(100px) translateZ(0px);
+          opacity: 1;
+        }
+        50% {
+          /* transform: scale(2); */
+          transform: perspective(100px) translateZ(35px);
+          opacity: 0;
+        }
+        100% {
+          /* transform: scale(2); */
+          transform: perspective(100px) translateZ(35px);
+          opacity: 0;
+        }
+      }
+      .mocchiri {
+        animation: mocchiri 3s infinite;
+      }
+      @keyframes mocchiri {
+        0% {
+          transform: scale(1, 0.8);
+        }
+        20% {
+          transform: scale(0.8, 1.1);
+        }
+        95% {
+          transform: scale(1, 1);
+        }
+        100% {
+          transform: scale(1, 0.8);
+        }
+      }
+      .bururi {
+        animation: bururi 1s infinite;
+      }
+      @keyframes bururi {
+        50% {
+          transform: scale(1, 1);
+        }
+        52% {
+          transform: scale(0.96, 0.9);
+        }
+        54% {
+          transform: scale(1, 1);
+        }
+        56% {
+          transform: scale(0.96, 0.9);
+        }
+        58% {
+          transform: scale(1, 1);
+        }
+        60% {
+          transform: scale(0.96, 0.9);
+        }
+      }
+
+      .patsun {
+        animation: patsun 2s infinite;
+      }
+      @keyframes patsun {
+        0% {
+          transform: rotateZ(0deg);
+        }
+        22% {
+          transform: rotateZ(0deg);
+        }
+        24% {
+          transform: translate(-2px, -10px) rotateZ(-18deg) scale(0.8, 1.3);
+        }
+        26% {
+          transform: rotateZ(0deg) scale(1, 1.1);
+        }
+        28% {
+          transform: translate(0px, -2px) rotateZ(-2deg);
+        }
+        30% {
+          transform: rotateZ(0deg);
+        }
+        32% {
+          transform: translate(0px, -2px) rotateZ(-2deg);
+        }
+        33% {
+          transform: rotateZ(0deg);
+        }
+        34% {
+          transform: translate(0px, -2px) rotateZ(-2deg);
+        }
+        35% {
+          transform: rotateZ(0deg);
+        }
+        36% {
+          transform: translate(0px, -2px) rotateZ(-2deg);
+        }
+        37% {
+          transform: rotateZ(0deg);
+        }
+        38% {
+          transform: translate(0px, -2px) rotateZ(-2deg);
+        }
+        39% {
+          transform: rotateZ(0deg);
+        }
+        100% {
+          transform: rotateZ(0deg);
+        }
+      }
+
+      /* .pulse-shadow {
+          animation: pulse-shadow-primary 2s linear infinite;
+      }
+      @keyframes pulse-shadow-primary {
+          0% {
+              box-shadow: 0 0 0 0 var(--bg-color);
+          }
+          40% {
+              box-shadow: 0 0 0 25px rgba(0, 124, 181, 0);
+          }
+          80% {
+              box-shadow: 0 0 0 25px rgba(0, 124, 181, 0);
+          }
+          100% {
+              box-shadow: 0 0 0 0 rgba(0, 124, 181, 0);
+          }
+      }     */
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <template v-if="app=='button'&&(contact[0].status||admin==='admin')">
+        <!-- <v-btn
+          v-show="contact[0].button||admin==='admin'"
+          @click="go_zoom()"
+          :style="style"
+        >
+          <v-icon x-large>{{siteSetting.icon}}</v-icon>
+        </v-btn> -->
+        <!-- <div
+          v-show="contact[0].button||admin==='admin'"
+          style="display: block; height: 10px"
+        ></div> -->
+        <!-- <v-btn v-show="!contact[0].button||contact[0].chat||admin==='admin'" :disabled="!contact[0].chat&&admin!=='admin'" @click="style_chat()" :style="style"> -->
+        <v-btn
+          :disabled="!contact[0].chat&&admin!=='admin'"
+          @click="style_chat()"
+          :style="style"
+          :class="contact[0].chat&&contact[0].action=='pulse'?'pulse-btn yureru-js':contact[0].chat&&contact[0].action=='move'?'mocchiri':contact[0].chat&&contact[0].action=='shake'?'bururi':contact[0].chat&&contact[0].action=='jump'?'patsun':''"
+        >
+          <v-icon x-large>{{siteSetting.icon}}</v-icon>
+        </v-btn>
+      </template>
+      <template v-if="app=='chat'">
+        <v-container style="padding: 0; background-color: #fff; height: 100%;">
+          <v-row
+            :style="'margin: 0 ;width: 100%; position: fixed; top: 0; background-color: ' + siteSetting.bgColor"
+            class="chat-messagae"
+          >
+            <v-spacer></v-spacer>
+            <span :style="'font-size: 1em;color:' + siteSetting.fontColor"
+              >{{contact[0].name||'Online Chat'}}</span
+            >
+            <v-spacer></v-spacer>
+            <v-btn
+              :color="siteSetting.fontColor"
+              v-show="contact[0].button"
+              @click="go_zoom()"
+              class="yureru-js"
+            >
+              <span
+                :style="'text-transform: none;font-weight:600;font-size: 1.5em;color:' + siteSetting.bgColor"
+                >Live</span
+              >
+              <v-icon x-large :style="'color: ' + siteSetting.bgColor"
+                >mdi-video-box</v-icon
+              >
+              <!-- <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="none"
+                  style="cursor: pointer"
+                  viewBox="-25 0 75 75"
+                  height="40"
+                  >
+                  <circle cx="10" cy="40" r="30" :fill="siteSetting.bgColor" />
+                  <circle cx="10" cy="40" r="22" :fill="siteSetting.fontColor" />
+                  <polygon points="0,26 0,54 27,40" :fill="siteSetting.bgColor" />
+                </svg> -->
+            </v-btn>
+            <v-icon
+              :style="'margin:0 0.8rem;color:' + siteSetting.fontColor"
+              @click="app='button'
+              scope = 'site'
+              connect_site()
+              style_init()
+              style_change()"
+              >mdi-close</v-icon
+            ></v-row
+          >
+          <section
+            ref="chatArea"
+            class="chat-area"
+            :style="'background-color:rgba(240,240,240,0.5); margin:3.5rem 0 3.5rem 0; width:' + chatWidth + ';height: 100%;'"
+          >
+            <div
+              class="message"
+              style="margin-bottom: 0.5em; color: #333"
+              v-if="contact[0].ad"
+            >
+              <span v-html="ad()"></span>
+            </div>
+            <p
+              v-for="message in messages"
+              :style="message.author === 'you' ? 'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor : false"
+              :class="{ 'message message-out': message.author === 'you', 'message message-in': message.author === 'me' }"
+            >
+              <span v-html="markp(message.body)"></span>
+              <!-- {{ message.body }} -->
+            </p>
+          </section>
+          <v-row style="margin: 0; width: 100%; position: fixed; bottom: 0;" class="chat-messagae">
+            <input
+              type="text"
+              name=""
+              placeholder="Type your message"
+              v-model="youMessage"
+              style="
+                outline: none;
+                background-color: #fff;
+                padding: 0 1.5rem;
+                width: calc(100% - 40px);
+                height: 100%;
+              "
+              @keyup.enter="sendMessage('out')"
+            />
+            <v-icon width="40px" x-large @click="sendMessage('out')"
+              >mdi-send</v-icon
+            >
+          </v-row>
+          <!-- <v-text-field
+            class="chat-messagae"
+            autofocus
+            label="Type your message"
+            v-model="youMessage"
+            dense
+            clearable
+            @keyup.enter="sendMessage('out')"
+            style="background-color: orange"
+          ></v-text-field> -->
+        </v-container>
+      </template>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios@1.0.0/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.3/lz-string.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
+
+    <script type="module">
+      import ad from 'https://kllc.github.io/repo/script/livelpad.js'
+
+      // const apiBaseUrl = 'http://localhost:7071'
+      const apiBaseUrl = 'https://live-ec.azurewebsites.net'
+
+      const liveApi = axios.create({
+        baseURL: apiBaseUrl + '/api/',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const searchParams = new URLSearchParams(window.location.search)
+      self.app = new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data() {
+          return {
+            app: 'button',
+            // status: false,
+            scope: 'site',
+            style:
+              'width: 100px; height: 100px; font-size: 40px; color: white; background-color: white;',
+            siteKey: '',
+            userId: '',
+            jschat: '',
+            contact: [
+              {
+                zoomurl: '',
+                status: false,
+                func: 'button',
+                chat: false,
+                button: false,
+                name: '',
+                chatScore: 0,
+              },
+            ],
+            siteSetting: {
+              x: 0,
+              y: 0,
+              size: 0,
+              name: '',
+              number: 1,
+              message: '',
+              timeout: 60,
+              response: '',
+              parent: {
+                init: {
+                  opacity: 1,
+                  right: '0px',
+                  bottom: '0px',
+                  width: '0px',
+                  height: '0px',
+                  transition: 'all 1s ease',
+                },
+                set: {
+                  right: '0px',
+                  bottom: '0px',
+                  width: '0px',
+                  height: '0px',
+                },
+              },
+            },
+            meMessage: '',
+            youMessage: '',
+            messages: [
+              {
+                body: 'Please enter any inquiry you may have.',
+                author: 'me',
+              },
+            ],
+            admin: searchParams.get('admin'),
+            chatWidth: '400px',
+            timeout: false,
+            json: {
+              f: 'select',
+              q: 'お問合せ内容をお選びいただくか、ご質問内容をご入力ください。',
+              a: [],
+            },
+          }
+        },
+        async mounted() {
+          this.style =
+            'width: 0px; height: 0px; font-size: 0px; color: white; background-color: white;'
+
+          this.siteKey = searchParams.get('key')
+          await this.connect_site()
+
+          this.style =
+            'width: ' +
+            this.siteSetting.size +
+            'px; height: ' +
+            this.siteSetting.size +
+            'px; font-size: ' +
+            this.siteSetting.size / 2 +
+            'px; border-radius:' +
+            (this.siteSetting.size * this.siteSetting.br) / 100 +
+            'px; color:' +
+            this.siteSetting.fontColor +
+            '; background-color:' +
+            this.siteSetting.bgColor +
+            ';'
+
+          if (this.siteSetting.message) {
+            this.messages = [
+              {
+                body:
+                  typeof this.siteSetting.message == 'object'
+                    ? JSON.stringify(this.siteSetting.message)
+                    : this.siteSetting.message,
+                author: 'me',
+              },
+            ]
+          }
+
+          if (this.admin) {
+            this.userId = this.admin
+            this.parent()
+          } else {
+            this.userId = sessionStorage.getItem('userId')
+            if (!this.userId) {
+              this.userId = this.uuid()
+              sessionStorage.setItem('userId', this.userId)
+            }
+          }
+          await this.signalRConnect()
+          // await this.add_group()
+
+          const renderer = new marked.Renderer()
+          renderer.link = (href, title, text) =>
+            `<a target="_blank" href="${href}" title="${title}">${text}</a>`
+          marked.setOptions({
+            renderer: renderer,
+          })
+
+          this.style_init()
+          this.style_change()
+
+          this.get_message()
+          if (!this.admin) {
+            this.send_message(
+              { func: 'mount', userId: this.userId },
+              '',
+              this.siteKey
+            )
+          }
+          this.json_chat()
+        },
+        methods: {
+          ad() {
+            return ad(this.contact[0].ad)
+          },
+          parent() {
+            // 管理者甩メソッド
+            window.addEventListener(
+              'message',
+              (event) => {
+                // if (event.origin.startsWith('https://live-ec.net')) {
+                this.receive(event.data)
+                // }
+              },
+              { once: false }
+            )
+          },
+          async signalRConnect() {
+            // SingleR Connection 処理
+            const connection = new signalR.HubConnectionBuilder()
+              // .withUrl(apiBaseUrl + "/api")
+              .withUrl(
+                apiBaseUrl +
+                  '/api?userId=' +
+                  this.userId +
+                  '&group=' +
+                  this.siteKey +
+                  '&isSmartPhone=' +
+                  '2'
+                // this.isSmartPhone()
+              )
+              .withAutomaticReconnect()
+              .configureLogging(signalR.LogLevel.Information)
+              .build()
+            // if (!this.admin) {
+            connection.on('newMessage', (message) => {
+              // ここに message が来たときの処理を書く
+              // document.getElementById("messages").innerHTML = message;
+              this.receive(message)
+            })
+
+            connection.on('disconnected', function () {
+              setTimeout(function () {
+                connection.start()
+              }, 5000)
+            })
+
+            var self = this
+            document.addEventListener('visibilitychange', function () {
+              if (document.visibilityState === 'visible') {
+                if (connection.connectionState == 0) {
+                  connection.start()
+                }
+                self.get_message()
+              }
+            })
+            // }
+            await connection.start().then(this.add_group).catch(console.error)
+          },
+          async get_message() {
+            const res = await liveApi.post('get-message', {
+              userId: this.userId,
+              group: this.siteKey,
+            })
+            if (res.data && res.data.info && res.data.info.data) {
+              this.messages = res.data.info.data
+            }
+          },
+          async add_group() {
+            await liveApi.post('add-group', {
+              userId: this.userId,
+              key: 'signalr-list',
+              group: this.siteKey,
+            })
+          },
+          go_zoom() {
+            if (this.admin === 'admin') {
+              return
+            }
+            window.open(this.contact[0].zoomurl)
+          },
+          async connect_site() {
+            const res = await liveApi.post('live-get-site', {
+              key: this.siteKey,
+            })
+            if (!res.data.site) {
+              return false
+            }
+            this.siteSetting = res.data.site
+            this.contact = res.data.contact
+            return true
+          },
+          async send_message(message, id, group) {
+            // alert('iframe-send-' + id + group + JSON.stringify(message))
+            const opt = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: id,
+                message: Object.assign(message, {
+                  isSmartPhone: this.isSmartPhone(),
+                  userAgent: navigator.userAgent,
+                }),
+                group: group,
+              }),
+            }
+            const res = await fetch(
+              apiBaseUrl + '/api/send-message-client',
+              opt
+            )
+          },
+          async receive(data) {
+            // alert('iframe-recieve-'+JSON.stringify(data))
+            switch (data.func) {
+              case 'app':
+                this.app = data.app
+                switch (data.app) {
+                  case 'button':
+                    this.style_change()
+                    break
+                  case 'chat':
+                    this.style_chat()
+                    break
+                }
+                // 実行する処理 //式が値1に当てはまる場合に実行される
+                break
+              case 'contact':
+                if (this.scope == 'site') {
+                  if (this.contact.length) {
+                    // 過去データを消す
+                    this.contact = this.contact.filter((rec) => {
+                      return rec.id != data.data.id
+                    })
+                  }
+                  // 最新に１行追加する
+                  if (data.data.status) {
+                    if (this.contact.length) {
+                      this.contact.unshift(data.data)
+                    } else {
+                      this.contact.push(data.data)
+                    }
+                    this.contact = Object.assign([], this.contact)
+                  }
+                  this.style_change()
+                }
+                break
+              case 'contact-user':
+                this.scope = 'user'
+                if (this.contact.length) {
+                  this.contact.unshift(data.data)
+                } else {
+                  this.contact.push(data.data)
+                }
+                this.contact = Object.assign([], this.contact)
+                if (this.app == 'button') {
+                  this.style_change()
+                }
+                break
+              case 'disconnect':
+                await this.connect_site()
+                if (this.admin) {
+                  this.scope = 'site'
+                  this.app = 'button'
+                  this.style_change()
+                } else if (this.app == 'button') {
+                  this.style_change()
+                }
+                break
+              case 'chat':
+                // 実行する処理 //式が値2に当てはまる場合に実行される
+                if (this.app != 'chat') {
+                  this.app = 'chat'
+                  this.style_chat()
+                }
+                this.timeout = false
+
+                this.messages = data.data
+                this.json_chat()
+
+                // this.scrollMassage()
+                // this.messages =Object.assign({},data.data)
+                break
+              case 'child':
+                this.style = data.style
+                this.siteSetting.icon = data.icon
+                break
+              case 'zoom':
+                window.location.href = this.contact[0].zoomurl
+              // this.go_zoom()
+              case 'parent':
+                let style = data.style
+                // if (this.contact[0].button && this.contact[0].chat || this.admin=='admin') {
+                //   Object.assign(style, {
+                //     height: style.size * 2 + 12 + 'px',
+                //   })
+                // } else {
+                //   Object.assign(style, {
+                //     height: style.size + 'px',
+                //   })
+                // }
+                document.documentElement.style.setProperty(
+                  '--border-size',
+                  style.size * 0.1 + 10 + 'px'
+                )
+                document.documentElement.style.setProperty(
+                  '--bg-color',
+                  style.bgColor
+                )
+                window.parent.postMessage(style, '*')
+                break
+              case 'alert':
+                alert(data)
+                // 実行する処理 //式が値3に当てはまる場合に実行される
+                break
+              case 'poling':
+                this.send_message(
+                  {
+                    func: 'chat',
+                    poling: true,
+                    data: this.messages,
+                    userId: this.userId,
+                  },
+                  '',
+                  this.siteKey
+                )
+                break
+              case '':
+                // 実行する処理 //式が値3に当てはまる場合に実行される
+                break
+            }
+          },
+          uuid() {
+            var ALPHABET =
+              '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            var ID_LENGTH = 10
+            var rtn = ''
+            for (var i = 0; i < ID_LENGTH; i++) {
+              rtn += ALPHABET.charAt(
+                Math.floor(Math.random() * ALPHABET.length)
+              )
+            }
+            return rtn
+          },
+          style_init() {
+            window.parent.postMessage(this.siteSetting.parent.init, '*')
+          },
+          style_change() {
+            // 1.2.0
+            // if (this.contact[0].button && this.contact[0].chat|| this.admin=='admin') {
+            //   Object.assign(this.siteSetting.parent.set, {
+            //     height: this.siteSetting.size * 2 + 10 + 'px',
+            //   })
+            // } else {
+            //   Object.assign(this.siteSetting.parent.set, {
+            //     height: this.siteSetting.size + 'px',
+            //   })
+            // }
+
+            document.documentElement.style.setProperty(
+              '--bg-color',
+              this.siteSetting.bgColor
+            )
+            document.documentElement.style.setProperty(
+              '--border-size',
+              this.siteSetting.size * 0.1 + 10 + 'px'
+            )
+
+            // 1.2.1
+            if (this.admin && this.admin !== 'admin') {
+              Object.assign(this.siteSetting.parent.set, {
+                left: null,
+                right: '-30px',
+                top: null,
+                bottom: '-30px',
+              })
+            }
+            window.parent.postMessage(this.siteSetting.parent.set, '*')
+          },
+          style_chat() {
+            if (this.admin === 'admin') {
+              return
+            }
+            let style = ''
+            this.app = 'chat'
+            this.scope = 'user'
+            if (this.isSmartPhone()) {
+              style = {
+                width: '100vw',
+                height: '100%',
+                // height: '100vh',
+                // height: '100dvh',
+                bottom: '0px',
+                right: '0px',
+                'border-radius': '10px',
+              }
+              this.chatWidth = '100vw'
+            } else {
+              style = {
+                width: '400px',
+                height: '460px',
+                bottom: '20px',
+                right: '10px',
+                'border-radius': '20px',
+              }
+              this.chatWidth = '400px'
+            }
+            this.scrollMassage()
+            window.parent.postMessage(style, '*')
+          },
+          isSmartPhone() {
+            if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+              return true
+            } else if (
+              window.matchMedia &&
+              window.matchMedia('(max-device-width: 640px)').matches
+            ) {
+              return true
+            } else {
+              return false
+            }
+
+            // if (navigator.maxTouchPoints > 0) {
+            //   return true
+            // }
+            // if (navigator.msMaxTouchPoints > 0) {
+            //   return true
+            // }
+            // if (window.matchMedia('(pointer:coarse)').matches) {
+            //   return true
+            // }
+            // if ('orientation' in window) {
+            //   return true
+            // }
+
+            return false
+          },
+          sendMessage(direction) {
+            if (!this.youMessage && !this.meMessage) {
+              return
+            }
+            if (this.admin) {
+              return
+            }
+            if (direction === 'out') {
+              this.messages.push({ body: this.youMessage, author: 'you' })
+            } else if (direction === 'in') {
+              this.messages.push({ body: this.meMessage, author: 'me' })
+            } else {
+              alert('something went wrong')
+            }
+            this.send_message(
+              {
+                func: 'chat',
+                data: this.messages,
+                ai:
+                  this.contact[0].chat === 'ai' ||
+                  this.contact[0].chat === 'gpt'
+                    ? this.contact[0].chatScore
+                    : false,
+                chat: this.contact[0].chat,
+                userId: this.userId,
+                direction: direction,
+                groupName: this.siteKey,
+                message: this.youMessage,
+                jschat: this.jschat,
+              },
+              '',
+              this.siteKey
+            )
+            this.youMessage = ''
+            this.meMessage = ''
+            this.timeout = true
+
+            if (this.contact[0].chat === 'gpt' && this.jschat !== 'jschat') {
+              this.messages.push({
+                body: "<img width='40' src='https://livelp.net/ten.gif' style='margin:5px 5px;'></img>",
+                author: 'me',
+              })
+              this.scrollMassage()
+            } else if (this.siteSetting.timeout && this.siteSetting.response) {
+              setTimeout(() => {
+                if (this.timeout) {
+                  this.messages.push({
+                    body: this.siteSetting.response,
+                    author: 'me',
+                  })
+                  this.scrollMassage()
+                }
+              }, this.siteSetting.timeout * 1000)
+            }
+            this.jschat = ''
+          },
+          scrollMassage() {
+            Vue.nextTick(() => {
+              let messageDisplay = this.$refs.chatArea
+              try {
+                messageDisplay.scrollTop = messageDisplay.scrollHeight
+              } catch {}
+            })
+          },
+          clearAllMessages() {
+            this.messages = []
+          },
+          markp(string) {
+            try {
+              const json = JSON.parse(string)
+              return marked.parse(json.q)
+            } catch (error) {
+              return marked.parse(string)
+            }
+          },
+          json_chat() {
+            let message = this.messages.slice(-1)[0]
+            this.messages = this.messages.slice(0, -1)
+
+            this.messages.push({
+              body: "<img width='40' src='https://livelp.net/ten.gif' style='margin:5px 5px;'></img>",
+              author: 'me',
+            })
+            this.scrollMassage()
+
+            try {
+              this.json = JSON.parse(message.body)
+              let self = this
+              setTimeout(function () {
+                self.messages = self.messages.slice(0, -1)
+                self.json_excec()
+                self.scrollMassage()
+              }, 1100)
+            } catch (error) {
+              let self = this
+              setTimeout(function () {
+                self.messages = self.messages.slice(0, -1)
+                self.messages.push(message)
+                self.scrollMassage()
+              }, 1100)
+            }
+          },
+          jssend(string) {
+            this.youMessage = string
+            this.jschat = 'jschat'
+            this.sendMessage('out')
+          },
+          json_excec() {
+            this.messages.push({ body: this.json.q, author: 'me' })
+            if (this.json.f == 'Choice') {
+              for (let i in this.json.a) {
+                let ihtml =
+                  `<a class="button" onclick="app.jssend('` +
+                  this.json.a[i].value +
+                  `')">` +
+                  this.json.a[i].value +
+                  `</a>`
+                this.messages.push({ body: ihtml, author: 'js' })
+              }
+              // this.scrollMassage()
+            } else if (this.json.f == 'Jump') {
+              let setThis = this
+              setTimeout(
+                function () {
+                  window.top.location.href = setThis.json.url
+                },
+                setThis.json.time ? setThis.json.time * 1000 : 5000
+              )
+            } else if (this.json.f == 'end') {
+              // 特に何もなし
+            }
+          },
+        },
+        computed: {},
+        watch: {},
+        destroyed() {},
+      })
+    </script>
+  </body>
+</html>
