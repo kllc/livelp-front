@@ -28,7 +28,7 @@
     <style>
       html,
       body {
-        font-family: 'Noto Sans JP', sans-serif;
+        font-family: "Noto Sans JP", sans-serif;
         background: transparent;
         color: white;
         display: flex;
@@ -41,9 +41,8 @@
       .chat-area {
         /*   border: 1px solid #ccc; */
         /* background: white; */
-        /* height: calc(100vh - 7rem); */
-        /* height: calc(100dvh - 7rem); */
-        height: 100%;
+        height: calc(100vh - 7rem);
+        height: calc(100dvh - 7rem);
         padding: 1em;
         overflow: auto;
         /* max-width: 350px; */
@@ -104,7 +103,7 @@
 
       /* ボタンの波紋 */
       .pulse-btn::after {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         top: 0;
@@ -297,9 +296,9 @@
         </v-btn>
       </template>
       <template v-if="app=='chat'">
-        <v-container style="padding: 0; background-color: #fff; height: 100%;">
+        <v-container style="padding: 0; background-color: #fff">
           <v-row
-            :style="'margin: 0 ;width: 100%; position: fixed; top: 0; background-color: ' + siteSetting.bgColor"
+            :style="'margin: 0 ;background-color: ' + siteSetting.bgColor"
             class="chat-messagae"
           >
             <v-spacer></v-spacer>
@@ -345,7 +344,7 @@
           <section
             ref="chatArea"
             class="chat-area"
-            :style="'background-color:rgba(240,240,240,0.5); margin:3.5rem 0 3.5rem 0; width:' + chatWidth + ';height: calc(100dvh - 7rem);'"
+            :style="'background-color:rgba(240,240,240,0.5);width:' + chatWidth + ';'"
           >
             <div
               class="message"
@@ -363,7 +362,7 @@
               <!-- {{ message.body }} -->
             </p>
           </section>
-          <v-row style="margin: 0; width: 100%; position: fixed; bottom: 0;" class="chat-messagae">
+          <v-row style="margin: 0" class="chat-messagae">
             <input
               type="text"
               name=""
@@ -374,7 +373,6 @@
                 background-color: #fff;
                 padding: 0 1.5rem;
                 width: calc(100% - 40px);
-                height: 100%;
               "
               @keyup.enter="sendMessage('out')"
             />
@@ -403,40 +401,40 @@
     <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
 
     <script type="module">
-      import ad from 'https://kllc.github.io/repo/script/livelpad.js'
+      import ad from "https://kllc.github.io/repo/script/livelpad.js";
 
       // const apiBaseUrl = 'http://localhost:7071'
-      const apiBaseUrl = 'https://live-ec.azurewebsites.net'
+      const apiBaseUrl = "https://live-ec.azurewebsites.net";
 
       const liveApi = axios.create({
-        baseURL: apiBaseUrl + '/api/',
+        baseURL: apiBaseUrl + "/api/",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      })
+      });
 
-      const searchParams = new URLSearchParams(window.location.search)
+      const searchParams = new URLSearchParams(window.location.search);
       self.app = new Vue({
-        el: '#app',
+        el: "#app",
         vuetify: new Vuetify(),
         data() {
           return {
-            app: 'button',
+            app: "button",
             // status: false,
-            scope: 'site',
+            scope: "site",
             style:
-              'width: 100px; height: 100px; font-size: 40px; color: white; background-color: white;',
-            siteKey: '',
-            userId: '',
-            jschat: '',
+              "width: 100px; height: 100px; font-size: 40px; color: white; background-color: white;",
+            siteKey: "",
+            userId: "",
+            jschat: "",
             contact: [
               {
-                zoomurl: '',
+                zoomurl: "",
                 status: false,
-                func: 'button',
+                func: "button",
                 chat: false,
                 button: false,
-                name: '',
+                name: "",
                 chatScore: 0,
               },
             ],
@@ -444,128 +442,128 @@
               x: 0,
               y: 0,
               size: 0,
-              name: '',
+              name: "",
               number: 1,
-              message: '',
+              message: "",
               timeout: 60,
-              response: '',
+              response: "",
               parent: {
                 init: {
                   opacity: 1,
-                  right: '0px',
-                  bottom: '0px',
-                  width: '0px',
-                  height: '0px',
-                  transition: 'all 1s ease',
+                  right: "0px",
+                  bottom: "0px",
+                  width: "0px",
+                  height: "0px",
+                  transition: "all 1s ease",
                 },
                 set: {
-                  right: '0px',
-                  bottom: '0px',
-                  width: '0px',
-                  height: '0px',
+                  right: "0px",
+                  bottom: "0px",
+                  width: "0px",
+                  height: "0px",
                 },
               },
             },
-            meMessage: '',
-            youMessage: '',
+            meMessage: "",
+            youMessage: "",
             messages: [
               {
-                body: 'Please enter any inquiry you may have.',
-                author: 'me',
+                body: "Please enter any inquiry you may have.",
+                author: "me",
               },
             ],
-            admin: searchParams.get('admin'),
-            chatWidth: '400px',
+            admin: searchParams.get("admin"),
+            chatWidth: "400px",
             timeout: false,
             json: {
-              f: 'select',
-              q: 'お問合せ内容をお選びいただくか、ご質問内容をご入力ください。',
+              f: "select",
+              q: "お問合せ内容をお選びいただくか、ご質問内容をご入力ください。",
               a: [],
             },
-          }
+          };
         },
         async mounted() {
           this.style =
-            'width: 0px; height: 0px; font-size: 0px; color: white; background-color: white;'
+            "width: 0px; height: 0px; font-size: 0px; color: white; background-color: white;";
 
-          this.siteKey = searchParams.get('key')
-          await this.connect_site()
+          this.siteKey = searchParams.get("key");
+          await this.connect_site();
 
           this.style =
-            'width: ' +
+            "width: " +
             this.siteSetting.size +
-            'px; height: ' +
+            "px; height: " +
             this.siteSetting.size +
-            'px; font-size: ' +
+            "px; font-size: " +
             this.siteSetting.size / 2 +
-            'px; border-radius:' +
+            "px; border-radius:" +
             (this.siteSetting.size * this.siteSetting.br) / 100 +
-            'px; color:' +
+            "px; color:" +
             this.siteSetting.fontColor +
-            '; background-color:' +
+            "; background-color:" +
             this.siteSetting.bgColor +
-            ';'
+            ";";
 
           if (this.siteSetting.message) {
             this.messages = [
               {
                 body:
-                  typeof this.siteSetting.message == 'object'
+                  typeof this.siteSetting.message == "object"
                     ? JSON.stringify(this.siteSetting.message)
                     : this.siteSetting.message,
-                author: 'me',
+                author: "me",
               },
-            ]
+            ];
           }
 
           if (this.admin) {
-            this.userId = this.admin
-            this.parent()
+            this.userId = this.admin;
+            this.parent();
           } else {
-            this.userId = sessionStorage.getItem('userId')
+            this.userId = sessionStorage.getItem("userId");
             if (!this.userId) {
-              this.userId = this.uuid()
-              sessionStorage.setItem('userId', this.userId)
+              this.userId = this.uuid();
+              sessionStorage.setItem("userId", this.userId);
             }
           }
-          await this.signalRConnect()
+          await this.signalRConnect();
           // await this.add_group()
 
-          const renderer = new marked.Renderer()
+          const renderer = new marked.Renderer();
           renderer.link = (href, title, text) =>
-            `<a target="_blank" href="${href}" title="${title}">${text}</a>`
+            `<a target="_blank" href="${href}" title="${title}">${text}</a>`;
           marked.setOptions({
             renderer: renderer,
-          })
+          });
 
-          this.style_init()
-          this.style_change()
+          this.style_init();
+          this.style_change();
 
-          this.get_message()
+          this.get_message();
           if (!this.admin) {
             this.send_message(
-              { func: 'mount', userId: this.userId },
-              '',
+              { func: "mount", userId: this.userId },
+              "",
               this.siteKey
-            )
+            );
           }
-          this.json_chat()
+          this.json_chat();
         },
         methods: {
           ad() {
-            return ad(this.contact[0].ad)
+            return ad(this.contact[0].ad);
           },
           parent() {
             // 管理者甩メソッド
             window.addEventListener(
-              'message',
+              "message",
               (event) => {
                 // if (event.origin.startsWith('https://live-ec.net')) {
-                this.receive(event.data)
+                this.receive(event.data);
                 // }
               },
               { once: false }
-            )
+            );
           },
           async signalRConnect() {
             // SingleR Connection 処理
@@ -573,81 +571,81 @@
               // .withUrl(apiBaseUrl + "/api")
               .withUrl(
                 apiBaseUrl +
-                  '/api?userId=' +
+                  "/api?userId=" +
                   this.userId +
-                  '&group=' +
+                  "&group=" +
                   this.siteKey +
-                  '&isSmartPhone=' +
-                  '2'
+                  "&isSmartPhone=" +
+                  "2"
                 // this.isSmartPhone()
               )
               .withAutomaticReconnect()
               .configureLogging(signalR.LogLevel.Information)
-              .build()
+              .build();
             // if (!this.admin) {
-            connection.on('newMessage', (message) => {
+            connection.on("newMessage", (message) => {
               // ここに message が来たときの処理を書く
               // document.getElementById("messages").innerHTML = message;
-              this.receive(message)
-            })
+              this.receive(message);
+            });
 
-            connection.on('disconnected', function () {
+            connection.on("disconnected", function () {
               setTimeout(function () {
-                connection.start()
-              }, 5000)
-            })
+                connection.start();
+              }, 5000);
+            });
 
-            var self = this
-            document.addEventListener('visibilitychange', function () {
-              if (document.visibilityState === 'visible') {
+            var self = this;
+            document.addEventListener("visibilitychange", function () {
+              if (document.visibilityState === "visible") {
                 if (connection.connectionState == 0) {
-                  connection.start()
+                  connection.start();
                 }
-                self.get_message()
+                self.get_message();
               }
-            })
+            });
             // }
-            await connection.start().then(this.add_group).catch(console.error)
+            await connection.start().then(this.add_group).catch(console.error);
           },
           async get_message() {
-            const res = await liveApi.post('get-message', {
+            const res = await liveApi.post("get-message", {
               userId: this.userId,
               group: this.siteKey,
-            })
+            });
             if (res.data && res.data.info && res.data.info.data) {
-              this.messages = res.data.info.data
+              this.messages = res.data.info.data;
             }
           },
           async add_group() {
-            await liveApi.post('add-group', {
+            await liveApi.post("add-group", {
               userId: this.userId,
-              key: 'signalr-list',
+              key: "signalr-list",
               group: this.siteKey,
-            })
+            });
           },
           go_zoom() {
-            if (this.admin === 'admin') {
-              return
+            if (this.admin === "admin") {
+              return;
             }
-            window.open(this.contact[0].zoomurl)
+            window.open(this.contact[0].zoomurl);
           },
           async connect_site() {
-            const res = await liveApi.post('live-get-site', {
+            const res = await liveApi.post("live-get-site", {
               key: this.siteKey,
-            })
+            });
             if (!res.data.site) {
-              return false
+              return false;
             }
-            this.siteSetting = res.data.site
-            this.contact = res.data.contact
-            return true
+            this.siteSetting = res.data.site;
+            this.contact = res.data.contact;
+            return true;
           },
           async send_message(message, id, group) {
             // alert('iframe-send-' + id + group + JSON.stringify(message))
             const opt = {
-              method: 'POST',
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 id: id,
@@ -657,92 +655,92 @@
                 }),
                 group: group,
               }),
-            }
+            };
             const res = await fetch(
-              apiBaseUrl + '/api/send-message-client',
+              apiBaseUrl + "/api/send-message-client",
               opt
-            )
+            );
           },
           async receive(data) {
             // alert('iframe-recieve-'+JSON.stringify(data))
             switch (data.func) {
-              case 'app':
-                this.app = data.app
+              case "app":
+                this.app = data.app;
                 switch (data.app) {
-                  case 'button':
-                    this.style_change()
-                    break
-                  case 'chat':
-                    this.style_chat()
-                    break
+                  case "button":
+                    this.style_change();
+                    break;
+                  case "chat":
+                    this.style_chat();
+                    break;
                 }
                 // 実行する処理 //式が値1に当てはまる場合に実行される
-                break
-              case 'contact':
-                if (this.scope == 'site') {
+                break;
+              case "contact":
+                if (this.scope == "site") {
                   if (this.contact.length) {
                     // 過去データを消す
                     this.contact = this.contact.filter((rec) => {
-                      return rec.id != data.data.id
-                    })
+                      return rec.id != data.data.id;
+                    });
                   }
                   // 最新に１行追加する
                   if (data.data.status) {
                     if (this.contact.length) {
-                      this.contact.unshift(data.data)
+                      this.contact.unshift(data.data);
                     } else {
-                      this.contact.push(data.data)
+                      this.contact.push(data.data);
                     }
-                    this.contact = Object.assign([], this.contact)
+                    this.contact = Object.assign([], this.contact);
                   }
-                  this.style_change()
+                  this.style_change();
                 }
-                break
-              case 'contact-user':
-                this.scope = 'user'
+                break;
+              case "contact-user":
+                this.scope = "user";
                 if (this.contact.length) {
-                  this.contact.unshift(data.data)
+                  this.contact.unshift(data.data);
                 } else {
-                  this.contact.push(data.data)
+                  this.contact.push(data.data);
                 }
-                this.contact = Object.assign([], this.contact)
-                if (this.app == 'button') {
-                  this.style_change()
+                this.contact = Object.assign([], this.contact);
+                if (this.app == "button") {
+                  this.style_change();
                 }
-                break
-              case 'disconnect':
-                await this.connect_site()
+                break;
+              case "disconnect":
+                await this.connect_site();
                 if (this.admin) {
-                  this.scope = 'site'
-                  this.app = 'button'
-                  this.style_change()
-                } else if (this.app == 'button') {
-                  this.style_change()
+                  this.scope = "site";
+                  this.app = "button";
+                  this.style_change();
+                } else if (this.app == "button") {
+                  this.style_change();
                 }
-                break
-              case 'chat':
+                break;
+              case "chat":
                 // 実行する処理 //式が値2に当てはまる場合に実行される
-                if (this.app != 'chat') {
-                  this.app = 'chat'
-                  this.style_chat()
+                if (this.app != "chat") {
+                  this.app = "chat";
+                  this.style_chat();
                 }
-                this.timeout = false
+                this.timeout = false;
 
-                this.messages = data.data
-                this.json_chat()
+                this.messages = data.data;
+                this.json_chat();
 
                 // this.scrollMassage()
                 // this.messages =Object.assign({},data.data)
-                break
-              case 'child':
-                this.style = data.style
-                this.siteSetting.icon = data.icon
-                break
-              case 'zoom':
-                window.location.href = this.contact[0].zoomurl
+                break;
+              case "child":
+                this.style = data.style;
+                this.siteSetting.icon = data.icon;
+                break;
+              case "zoom":
+                window.location.href = this.contact[0].zoomurl;
               // this.go_zoom()
-              case 'parent':
-                let style = data.style
+              case "parent":
+                let style = data.style;
                 // if (this.contact[0].button && this.contact[0].chat || this.admin=='admin') {
                 //   Object.assign(style, {
                 //     height: style.size * 2 + 12 + 'px',
@@ -753,50 +751,50 @@
                 //   })
                 // }
                 document.documentElement.style.setProperty(
-                  '--border-size',
-                  style.size * 0.1 + 10 + 'px'
-                )
+                  "--border-size",
+                  style.size * 0.1 + 10 + "px"
+                );
                 document.documentElement.style.setProperty(
-                  '--bg-color',
+                  "--bg-color",
                   style.bgColor
-                )
-                window.parent.postMessage(style, '*')
-                break
-              case 'alert':
-                alert(data)
+                );
+                window.parent.postMessage(style, "*");
+                break;
+              case "alert":
+                alert(data);
                 // 実行する処理 //式が値3に当てはまる場合に実行される
-                break
-              case 'poling':
+                break;
+              case "poling":
                 this.send_message(
                   {
-                    func: 'chat',
+                    func: "chat",
                     poling: true,
                     data: this.messages,
                     userId: this.userId,
                   },
-                  '',
+                  "",
                   this.siteKey
-                )
-                break
-              case '':
+                );
+                break;
+              case "":
                 // 実行する処理 //式が値3に当てはまる場合に実行される
-                break
+                break;
             }
           },
           uuid() {
             var ALPHABET =
-              '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            var ID_LENGTH = 10
-            var rtn = ''
+              "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var ID_LENGTH = 10;
+            var rtn = "";
             for (var i = 0; i < ID_LENGTH; i++) {
               rtn += ALPHABET.charAt(
                 Math.floor(Math.random() * ALPHABET.length)
-              )
+              );
             }
-            return rtn
+            return rtn;
           },
           style_init() {
-            window.parent.postMessage(this.siteSetting.parent.init, '*')
+            window.parent.postMessage(this.siteSetting.parent.init, "*");
           },
           style_change() {
             // 1.2.0
@@ -811,66 +809,65 @@
             // }
 
             document.documentElement.style.setProperty(
-              '--bg-color',
+              "--bg-color",
               this.siteSetting.bgColor
-            )
+            );
             document.documentElement.style.setProperty(
-              '--border-size',
-              this.siteSetting.size * 0.1 + 10 + 'px'
-            )
+              "--border-size",
+              this.siteSetting.size * 0.1 + 10 + "px"
+            );
 
             // 1.2.1
-            if (this.admin && this.admin !== 'admin') {
+            if (this.admin && this.admin !== "admin") {
               Object.assign(this.siteSetting.parent.set, {
                 left: null,
-                right: '-30px',
+                right: "-30px",
                 top: null,
-                bottom: '-30px',
-              })
+                bottom: "-30px",
+              });
             }
-            window.parent.postMessage(this.siteSetting.parent.set, '*')
+            window.parent.postMessage(this.siteSetting.parent.set, "*");
           },
           style_chat() {
-            if (this.admin === 'admin') {
-              return
+            if (this.admin === "admin") {
+              return;
             }
-            let style = ''
-            this.app = 'chat'
-            this.scope = 'user'
+            let style = "";
+            this.app = "chat";
+            this.scope = "user";
             if (this.isSmartPhone()) {
               style = {
-                width: '100vw',
-                height: '100%',
-                // height: '100vh',
-                // height: '100dvh',
-                bottom: '0px',
-                right: '0px',
-                'border-radius': '10px',
-              }
-              this.chatWidth = '100vw'
+                width: "100vw",
+                height: "100vh",
+                height: "100dvh",
+                bottom: "0px",
+                right: "0px",
+                "border-radius": "10px",
+              };
+              this.chatWidth = "100vw";
             } else {
               style = {
-                width: '400px',
-                height: '460px',
-                bottom: '20px',
-                right: '10px',
-                'border-radius': '20px',
-              }
-              this.chatWidth = '400px'
+                width: "400px",
+                height: "460px",
+                bottom: "20px",
+                right: "10px",
+                "border-radius": "20px",
+              };
+              this.chatWidth = "400px";
             }
-            this.scrollMassage()
-            window.parent.postMessage(style, '*')
+            this.scrollMassage();
+            window.parent.postMessage(style, "*");
           },
           isSmartPhone() {
             if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-              return true
+              return true;
             } else if (
               window.matchMedia &&
-              window.matchMedia('(max-device-width: 640px)').matches
+              window.matchMedia("(max-device-width: 640px)").matches
             ) {
-              return true
+              return true;
             } else {
-              return false
+              return false;
             }
 
             // if (navigator.maxTouchPoints > 0) {
@@ -886,29 +883,29 @@
             //   return true
             // }
 
-            return false
+            return false;
           },
           sendMessage(direction) {
             if (!this.youMessage && !this.meMessage) {
-              return
+              return;
             }
             if (this.admin) {
-              return
+              return;
             }
-            if (direction === 'out') {
-              this.messages.push({ body: this.youMessage, author: 'you' })
-            } else if (direction === 'in') {
-              this.messages.push({ body: this.meMessage, author: 'me' })
+            if (direction === "out") {
+              this.messages.push({ body: this.youMessage, author: "you" });
+            } else if (direction === "in") {
+              this.messages.push({ body: this.meMessage, author: "me" });
             } else {
-              alert('something went wrong')
+              alert("something went wrong");
             }
             this.send_message(
               {
-                func: 'chat',
+                func: "chat",
                 data: this.messages,
                 ai:
-                  this.contact[0].chat === 'ai' ||
-                  this.contact[0].chat === 'gpt'
+                  this.contact[0].chat === "ai" ||
+                  this.contact[0].chat === "gpt"
                     ? this.contact[0].chatScore
                     : false,
                 chat: this.contact[0].chat,
@@ -918,105 +915,105 @@
                 message: this.youMessage,
                 jschat: this.jschat,
               },
-              '',
+              "",
               this.siteKey
-            )
-            this.youMessage = ''
-            this.meMessage = ''
-            this.timeout = true
+            );
+            this.youMessage = "";
+            this.meMessage = "";
+            this.timeout = true;
 
-            if (this.contact[0].chat === 'gpt' && this.jschat !== 'jschat') {
+            if (this.contact[0].chat === "gpt" && this.jschat !== "jschat") {
               this.messages.push({
                 body: "<img width='40' src='https://livelp.net/ten.gif' style='margin:5px 5px;'></img>",
-                author: 'me',
-              })
-              this.scrollMassage()
+                author: "me",
+              });
+              this.scrollMassage();
             } else if (this.siteSetting.timeout && this.siteSetting.response) {
               setTimeout(() => {
                 if (this.timeout) {
                   this.messages.push({
                     body: this.siteSetting.response,
-                    author: 'me',
-                  })
-                  this.scrollMassage()
+                    author: "me",
+                  });
+                  this.scrollMassage();
                 }
-              }, this.siteSetting.timeout * 1000)
+              }, this.siteSetting.timeout * 1000);
             }
-            this.jschat = ''
+            this.jschat = "";
           },
           scrollMassage() {
             Vue.nextTick(() => {
-              let messageDisplay = this.$refs.chatArea
+              let messageDisplay = this.$refs.chatArea;
               try {
-                messageDisplay.scrollTop = messageDisplay.scrollHeight
+                messageDisplay.scrollTop = messageDisplay.scrollHeight;
               } catch {}
-            })
+            });
           },
           clearAllMessages() {
-            this.messages = []
+            this.messages = [];
           },
           markp(string) {
             try {
-              const json = JSON.parse(string)
-              return marked.parse(json.q)
+              const json = JSON.parse(string);
+              return marked.parse(json.q);
             } catch (error) {
-              return marked.parse(string)
+              return marked.parse(string);
             }
           },
           json_chat() {
-            let message = this.messages.slice(-1)[0]
-            this.messages = this.messages.slice(0, -1)
+            let message = this.messages.slice(-1)[0];
+            this.messages = this.messages.slice(0, -1);
 
             this.messages.push({
               body: "<img width='40' src='https://livelp.net/ten.gif' style='margin:5px 5px;'></img>",
-              author: 'me',
-            })
-            this.scrollMassage()
+              author: "me",
+            });
+            this.scrollMassage();
 
             try {
-              this.json = JSON.parse(message.body)
-              let self = this
+              this.json = JSON.parse(message.body);
+              let self = this;
               setTimeout(function () {
-                self.messages = self.messages.slice(0, -1)
-                self.json_excec()
-                self.scrollMassage()
-              }, 1100)
+                self.messages = self.messages.slice(0, -1);
+                self.json_excec();
+                self.scrollMassage();
+              }, 1100);
             } catch (error) {
-              let self = this
+              let self = this;
               setTimeout(function () {
-                self.messages = self.messages.slice(0, -1)
-                self.messages.push(message)
-                self.scrollMassage()
-              }, 1100)
+                self.messages = self.messages.slice(0, -1);
+                self.messages.push(message);
+                self.scrollMassage();
+              }, 1100);
             }
           },
           jssend(string) {
-            this.youMessage = string
-            this.jschat = 'jschat'
-            this.sendMessage('out')
+            this.youMessage = string;
+            this.jschat = "jschat";
+            this.sendMessage("out");
           },
           json_excec() {
-            this.messages.push({ body: this.json.q, author: 'me' })
-            if (this.json.f == 'Choice') {
+            this.messages.push({ body: this.json.q, author: "me" });
+            if (this.json.f == "Choice") {
               for (let i in this.json.a) {
                 let ihtml =
                   `<a class="button" onclick="app.jssend('` +
                   this.json.a[i].value +
                   `')">` +
                   this.json.a[i].value +
-                  `</a>`
-                this.messages.push({ body: ihtml, author: 'js' })
+                  `</a>`;
+                this.messages.push({ body: ihtml, author: "js" });
               }
               // this.scrollMassage()
-            } else if (this.json.f == 'Jump') {
-              let setThis = this
+            } else if (this.json.f == "Jump") {
+              let setThis = this;
               setTimeout(
                 function () {
-                  window.top.location.href = setThis.json.url
+                  window.top.location.href = setThis.json.url;
                 },
                 setThis.json.time ? setThis.json.time * 1000 : 5000
-              )
-            } else if (this.json.f == 'end') {
+              );
+            } else if (this.json.f == "end") {
               // 特に何もなし
             }
           },
@@ -1024,7 +1021,7 @@
         computed: {},
         watch: {},
         destroyed() {},
-      })
+      });
     </script>
   </body>
 </html>
