@@ -334,14 +334,14 @@
             <v-icon
               :color="siteSetting.fontColor"
               width="40px"
-              v-show="!contact[0].button&&mic&&!isSmartPhone()"
+              v-show="!contact[0].button&&mic"
               @click="startRecognition();mic=false;"
               >mdi-headset-off
             </v-icon>
             <v-icon
               :color="siteSetting.fontColor"
               width="40px"
-              v-show="!contact[0].button&&!mic&&!isSmartPhone()"
+              v-show="!contact[0].button&&!mic"
               @click="stopRecognition();mic=true;"
               >mdi-headset
             </v-icon>
