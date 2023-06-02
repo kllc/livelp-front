@@ -393,7 +393,7 @@
               "
               @keyup.enter="sendMessage('out')"
             />
-            <v-icon width="40px" x-large @click="sendMessage('out')"
+            <v-icon width="40px" x-large @click="textToSpeech("音声サービスを開始します。");sendMessage('out')"
               >mdi-send</v-icon
             >
           </v-row>
@@ -1699,7 +1699,7 @@
                 console.error("Error starting recognition: " + err);
               }
             );
-            this.textToSpeech("音声サービスを開始します。");
+            // this.textToSpeech("音声サービスを開始します。");
           },
           stopRecognition() {
             if (!this.recognizer) return;
@@ -1772,11 +1772,11 @@
             try {
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
-                this.synthesizer.pause();
+                this.synthesizer.close();
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
-              this.synthesizer.pause();
+              this.synthesizer.close();
             } finally {
             }
           },
