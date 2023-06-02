@@ -1730,7 +1730,9 @@
             this.speaking = true;
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
-            if (!this.player) {
+            if (this.player) {
+              this.player.resume();
+            } else {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
 
@@ -1742,7 +1744,9 @@
               };
             }
 
-            if (!this.synthesizer) {
+            if (this.synthesizer) {
+              this.synthesizer.Resume();
+            } else {
               let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
