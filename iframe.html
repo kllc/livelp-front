@@ -1778,11 +1778,11 @@
             try {
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
-                this.synthesizer.close();
+                this.synthesizer.pause();
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
-              this.synthesizer.close();
+              this.synthesizer.pause();
             } finally {
             }
           },
