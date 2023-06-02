@@ -1699,7 +1699,7 @@
                 console.error("Error starting recognition: " + err);
               }
             );
-            this.textToSpeech("音声サービスを開始します。");
+            this.textToSpeech("", true);
           },
           stopRecognition() {
             if (!this.recognizer) return;
@@ -1725,25 +1725,28 @@
           //     }
           //   )
           // },
-          async textToSpeech(text) {
+          async textToSpeech(text, start) {
             if (this.speaking) return;
             this.speaking = true;
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
+
+            if (!this.player) {
+              this.player = new this.SpeechSDK.SpeakerAudioDestination();
+              let self = this;
+
+              this.player.onAudioEnd = function (_) {
+                self.speaking = false;
+              };
+              this.player.onAudioStart = function (_) {
+                self.speaking = true;
+              };
+            }
+
             let speechConfig =
               this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                 this.apiKey,
                 this.region
               );
-
-            this.player = new this.SpeechSDK.SpeakerAudioDestination();
-            let self = this;
-
-            this.player.onAudioEnd = function (_) {
-              self.speaking = false;
-            };
-            this.player.onAudioStart = function (_) {
-              self.speaking = true;
-            };
 
             let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
               this.player
