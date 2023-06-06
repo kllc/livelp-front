@@ -1726,7 +1726,7 @@
           //   )
           // },
           async textToSpeech(text, start) {
-            if (this.speaking) return;
+            if (this.speaking && !start) return;
             this.speaking = true;
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
