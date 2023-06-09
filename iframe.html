@@ -1727,6 +1727,7 @@
           async textToSpeech(text, start) {
             if (this.speaking && !start) return;
             this.speaking = true;
+            // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
             if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
@@ -1740,14 +1741,19 @@
               };
             }
 
-            if (!this.synthesizer) {
+            // if (!this.synthesizer) {
 
-              let speechConfig =
-                this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
-                  this.apiKey,
-                  this.region
-                );
+              // let speechConfig =
+              //   this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
+              //     this.apiKey,
+              //     this.region
+              //   );
               
+            let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
+              '36007acb9c5d4addbe7aa2db0e7bdfc3',
+              'southeastasia'
+            )
+
               let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
                 this.player
               );
@@ -1756,7 +1762,7 @@
                 speechConfig,
                 audioConfig
               );
-            }
+            // }
 
             let ssml =
               `
@@ -1778,13 +1784,13 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
-                // this.synthesizer.close()
+                this.synthesizer.close()
                 this.speaking = false;
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               // this.synthesizer.pause();
-              // this.synthesizer.close()
+              this.synthesizer.close()
               this.speaking = false;
             } finally {
             }
