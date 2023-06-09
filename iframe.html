@@ -1730,17 +1730,17 @@
             this.speaking = true;
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
-            if (!this.player) {
+            // if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
 
-              // this.player.onAudioEnd = function (_) {
-              //   self.speaking = false;
-              // };
-              // this.player.onAudioStart = function (_) {
-              //   self.speaking = true;
-              // };
-            }
+              this.player.onAudioEnd = function (_) {
+                self.speaking = false;
+              };
+              this.player.onAudioStart = function (_) {
+                self.speaking = true;
+              };
+            // }
 
             if (!this.synthesizer) {
               let speechConfig =
