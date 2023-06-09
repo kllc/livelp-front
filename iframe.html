@@ -1744,9 +1744,7 @@
               };
             }
 
-            if (this.synthesizer) {
-              this.synthesizer.Resume();
-            } else {
+            if (!this.synthesizer) {
               let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
