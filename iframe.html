@@ -1355,7 +1355,6 @@
                   this.json_chat();
                 }
                 this.sending = false;
-                this.speaking = false;
                 // this.scrollMassage()
                 // this.messages =Object.assign({},data.data)
                 break;
@@ -1679,8 +1678,8 @@
                 e.result.reason === this.SpeechSDK.ResultReason.RecognizedSpeech
               ) {
                 console.log(`RECOGNIZED: Text=${e.result.text}`);
-                this.youMessage = e.result.text;
                 if (!this.sending && !this.speaking) {
+                  this.youMessage = e.result.text;
                   this.sendMessage("out");
                 }
               } else if (
@@ -1780,7 +1779,7 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
-                // this.speaking = false;
+                this.speaking = false;
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
