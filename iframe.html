@@ -1734,12 +1734,12 @@
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
 
-              this.player.onAudioEnd = function (_) {
-                self.speaking = false;
-              };
-              this.player.onAudioStart = function (_) {
-                self.speaking = true;
-              };
+              // this.player.onAudioEnd = function (_) {
+              //   self.speaking = false;
+              // };
+              // this.player.onAudioStart = function (_) {
+              //   self.speaking = true;
+              // };
             }
 
             if (!this.synthesizer) {
