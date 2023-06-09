@@ -1728,11 +1728,11 @@
           async textToSpeech(text, start) {
             if (this.speaking && !start) return;
             this.speaking = true;
+            this.player.unmute();
+
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
-            if (this.player) {
-              this.player.unmute();
-            } else {
+            if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
 
