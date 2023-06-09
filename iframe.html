@@ -1727,7 +1727,6 @@
           async textToSpeech(text, start) {
             if (this.speaking && !start) return;
             this.speaking = true;
-            // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
             if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
@@ -1749,11 +1748,6 @@
                   this.region
                 );
               
-            // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
-            //   '36007acb9c5d4addbe7aa2db0e7bdfc3',
-            //   'southeastasia'
-            // )
-
               let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
                 this.player
               );
