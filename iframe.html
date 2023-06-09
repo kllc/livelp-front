@@ -1731,7 +1731,7 @@
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
             if (this.player) {
-              this.player.resume();
+              this.player.unmute();
             } else {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
@@ -1790,8 +1790,8 @@
           },
           stopSpeaking() {
             if (this.player) {
-              this.player.pause();
-              // this.speaking = false;
+              this.player.mute();
+              this.speaking = false;
             }
           },
           changeVoice() {
