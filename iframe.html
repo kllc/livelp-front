@@ -1730,7 +1730,7 @@
             this.speaking = true;
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
-            // if (!this.player) {
+            if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
 
@@ -1740,14 +1740,20 @@
               this.player.onAudioStart = function (_) {
                 self.speaking = true;
               };
-            // }
+            }
 
             if (!this.synthesizer) {
-              let speechConfig =
-                this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
-                  this.apiKey,
-                  this.region
-                );
+
+              // let speechConfig =
+              //   this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
+              //     this.apiKey,
+              //     this.region
+              //   );
+              
+            let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
+              '36007acb9c5d4addbe7aa2db0e7bdfc3',
+              'southeastasia'
+            )
 
               let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
                 this.player
