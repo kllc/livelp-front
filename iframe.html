@@ -1353,8 +1353,8 @@
 
                   this.messages = data.data;
                   this.json_chat();
-                  this.sending = false;
                 }
+                this.sending = false;
                 // this.scrollMassage()
                 // this.messages =Object.assign({},data.data)
                 break;
@@ -1508,7 +1508,7 @@
               return;
             }
             if (direction === "out") {
-              if (this.speaking) return;
+              if (this.sending || this.speaking) return;
               this.sending = true;
               this.messages.push({ body: this.youMessage, author: "you" });
             } else if (direction === "in") {
