@@ -1726,16 +1726,11 @@
           //   )
           // },
           async textToSpeech(text, start) {
-            alert(1);
             if (this.speaking && !start) return;
             this.speaking = true;
-            alert(2);
-
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
             if (!this.player) {
-              alert(3);
-
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
 
@@ -1746,11 +1741,8 @@
                 self.speaking = true;
               };
             }
-            alert(4);
 
             if (!this.synthesizer) {
-              alert(5);
-
               let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
@@ -1766,7 +1758,6 @@
                 audioConfig
               );
             }
-            alert(6);
 
             let ssml =
               `
@@ -1785,18 +1776,14 @@
               </speak>
               `;
             try {
-              alert(7);
-
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
                 this.speaking = false;
-                alert(8);
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               // this.synthesizer.pause();
-              alert(9);
 
               this.speaking = false;
             } finally {
