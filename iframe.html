@@ -1726,6 +1726,7 @@
           //   )
           // },
           async textToSpeech(text, start) {
+            alet(1);
             if (this.speaking && !start) return;
             this.speaking = true;
 
@@ -1782,10 +1783,12 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
+                this.speaking = false;
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               // this.synthesizer.pause();
+              this.speaking = false;
             } finally {
             }
           },
