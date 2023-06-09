@@ -1355,6 +1355,7 @@
                   this.json_chat();
                 }
                 this.sending = false;
+                this.speaking = false;
                 // this.scrollMassage()
                 // this.messages =Object.assign({},data.data)
                 break;
@@ -1779,12 +1780,11 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
-                this.speaking = false;
+                // this.speaking = false;
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               // this.synthesizer.pause();
-
               this.speaking = false;
             } finally {
             }
