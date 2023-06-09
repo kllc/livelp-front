@@ -1508,7 +1508,7 @@
               return;
             }
             if (direction === "out") {
-              if (this.sending || this.speaking) return;
+              if (this.speaking) return;
               this.sending = true;
               this.messages.push({ body: this.youMessage, author: "you" });
             } else if (direction === "in") {
