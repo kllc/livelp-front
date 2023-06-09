@@ -1728,7 +1728,6 @@
           async textToSpeech(text, start) {
             if (this.speaking && !start) return;
             this.speaking = true;
-            this.player.unmute();
 
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
 
@@ -1742,6 +1741,8 @@
               this.player.onAudioStart = function (_) {
                 self.speaking = true;
               };
+            } else {
+              this.player.resume();
             }
 
             if (!this.synthesizer) {
@@ -1780,17 +1781,17 @@
             try {
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
-                this.synthesizer.pause();
+                // this.synthesizer.pause();
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
-              this.synthesizer.pause();
+              // this.synthesizer.pause();
             } finally {
             }
           },
           stopSpeaking() {
             if (this.player) {
-              this.player.mute();
+              this.player.pause();
               this.speaking = false;
             }
           },
