@@ -1716,6 +1716,7 @@
             if (this.speaking && !start) return;
             this.speaking = true;
 
+            this.player.resume()
             if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
