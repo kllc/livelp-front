@@ -1777,6 +1777,7 @@
               this.speaking = false;
               this.synthesizer.close()
             } finally {
+              this.speaking = false;
             }
           },
           stopSpeaking() {
