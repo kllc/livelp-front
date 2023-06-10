@@ -1752,6 +1752,7 @@
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
                 this.synthesizer.close()
+                this.startSynthesizer()
                 // this.synthesizer.dispose(true);
               });
             } catch (err) {
