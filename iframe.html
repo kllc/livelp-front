@@ -1712,18 +1712,6 @@
             );
             this.stopSpeaking();
           },
-          // async stopRecognition() {
-          //   if (!this.recognizer) return
-          //   this.recognizer.stopContinuousRecognitionAsync(
-          //     () => {
-          //       console.log('Recognition stopped')
-          //       // this.stopSpeaking()
-          //     },
-          //     (err) => {
-          //       console.error('Error stopping recognition: ' + err)
-          //     }
-          //   )
-          // },
           async textToSpeech(text, start) {
             if (this.speaking && !start) return;
             this.speaking = true;
@@ -1778,13 +1766,13 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
-                // this.synthesizer.close()
+                this.synthesizer.close()
                 this.speaking = false;
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               // this.synthesizer.pause();
-              // this.synthesizer.close()
+              this.synthesizer.close()
               this.speaking = false;
             } finally {
             }
