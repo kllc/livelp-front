@@ -1765,7 +1765,7 @@
             }
           },
           startSynthesizer() {
-            if (!this.synthesizer) {
+            // if (!this.synthesizer) {
               let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
@@ -1780,9 +1780,9 @@
                 speechConfig,
                 audioConfig
               );
-            } else {
+            // } else {
               // this.synthesizer.dispose(false);
-            }
+            // }
           },
           stopSpeaking() {
             if (this.player) {
