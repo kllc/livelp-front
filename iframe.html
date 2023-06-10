@@ -1728,7 +1728,7 @@
               };
             }
 
-            if (!this.synthesizer) {
+            // if (!this.synthesizer) {
 
               let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
@@ -1744,7 +1744,7 @@
                 speechConfig,
                 audioConfig
               );
-            }
+            // }
 
             let ssml =
               `
@@ -1766,7 +1766,7 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
-                this.synthesizer.close()
+                // this.synthesizer.close()
                 this.speaking = false;
               });
             } catch (err) {
