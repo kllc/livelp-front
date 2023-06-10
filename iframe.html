@@ -1729,26 +1729,7 @@
             } else {
               this.player.resume()
             }
-
-            if (!this.synthesizer) {
-
-              let speechConfig =
-                this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
-                  this.apiKey,
-                  this.region
-                );
-              
-              let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
-                this.player
-              );
-
-              this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
-                speechConfig,
-                audioConfig
-              );
-            } else {
-              // this.synthesizer.dispose(false);
-            }
+            this.startSynthesizer()
 
             let ssml =
               `
@@ -1770,8 +1751,7 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
-                this.player.pause()
-                // this.synthesizer.pause();
+                this.synthesizer.close()
                 // this.synthesizer.dispose(true);
               });
             } catch (err) {
@@ -1781,6 +1761,26 @@
               this.synthesizer.close()
             } finally {
               this.speaking = false;
+            }
+          },
+          startSynthesizer() {
+            if (!this.synthesizer) {
+              let speechConfig =
+                this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
+                  this.apiKey,
+                  this.region
+                );
+              
+              let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
+                this.player
+              );
+
+              this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
+                speechConfig,
+                audioConfig
+              );
+            } else {
+              // this.synthesizer.dispose(false);
             }
           },
           stopSpeaking() {
