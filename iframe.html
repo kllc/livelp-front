@@ -1768,14 +1768,14 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
-                this.synthesizer.dispose(true);
                 this.speaking = false;
+                this.synthesizer.dispose(true);
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               // this.synthesizer.pause();
-              this.synthesizer.close()
               this.speaking = false;
+              this.synthesizer.close()
             } finally {
             }
           },
