@@ -1769,11 +1769,13 @@
             try {
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
+                this.speaking = false;
                 // this.synthesizer.pause();
                 // this.synthesizer.dispose(true);
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
+              this.speaking = false;
               // this.synthesizer.pause();
               this.synthesizer.close()
             } finally {
