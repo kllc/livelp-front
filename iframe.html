@@ -1751,21 +1751,21 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
-                this.synthesizer.close()
-                this.startSynthesizer()
+                this.synthesizer.close(()=>{this.startSynthesizer()})
+                
                 // this.synthesizer.dispose(true);
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               this.speaking = false;
               // this.synthesizer.pause();
-              this.synthesizer.close()
+              // this.synthesizer.close()
             } finally {
               this.speaking = false;
             }
           },
           startSynthesizer() {
-            if (!this.synthesizer) {
+            // if (!this.synthesizer) {
               let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
@@ -1780,9 +1780,9 @@
                 speechConfig,
                 audioConfig
               );
-            } else {
+            // } else {
               // this.synthesizer.dispose(false);
-            }
+            // }
           },
           stopSpeaking() {
             if (this.player) {
