@@ -1746,6 +1746,8 @@
                 speechConfig,
                 audioConfig
               );
+            } else {
+              this.synthesizer.dispose(false);
             }
 
             let ssml =
@@ -1768,13 +1770,11 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 // this.synthesizer.pause();
-                this.speaking = false;
                 this.synthesizer.dispose(true);
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               // this.synthesizer.pause();
-              this.speaking = false;
               this.synthesizer.close()
             } finally {
               this.speaking = false;
