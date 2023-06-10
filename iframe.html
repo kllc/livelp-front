@@ -1716,7 +1716,6 @@
             if (this.speaking && !start) return;
             this.speaking = true;
 
-            this.player.resume()
             if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
@@ -1727,6 +1726,8 @@
               this.player.onAudioStart = function (_) {
                 self.speaking = true;
               };
+            } else {
+              this.player.resume()
             }
 
             if (!this.synthesizer) {
