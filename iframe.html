@@ -1735,19 +1735,19 @@
             this.speaking = true;
             // this.dialog=true;
 
-            if (!this.player) {
-              this.player = new this.SpeechSDK.SpeakerAudioDestination();
-              let self = this;
+            // if (!this.player) {
+            //   this.player = new this.SpeechSDK.SpeakerAudioDestination();
+            //   let self = this;
 
-              this.player.onAudioEnd = function (_) {
-                self.speaking = false;
-              };
-              this.player.onAudioStart = function (_) {
-                self.speaking = true;
-              };
-            } else {
-              this.player.resume()
-            }
+            //   this.player.onAudioEnd = function (_) {
+            //     self.speaking = false;
+            //   };
+            //   this.player.onAudioStart = function (_) {
+            //     self.speaking = true;
+            //   };
+            // } else {
+            //   this.player.resume()
+            // }
             this.startSynthesizer()
 
             let ssml =
@@ -1771,9 +1771,9 @@
               confirm("confirm")
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
-                this.synthesizer.close();
-                // this.synthesizer.close(()=>{this.startSynthesizer()})          
-                // this.synthesizer = undefined;
+                // this.synthesizer.close();
+                this.synthesizer.close(()=>{this.startSynthesizer()})                
+                this.synthesizer = undefined;
                 // this.synthesizer.dispose(true);
               });
             } catch (err) {
@@ -1786,19 +1786,19 @@
             }
           },
           startSynthesizer() {
-            let speechConfig
-            let audioConfig
-            if (!this.synthesizer) {
-              speechConfig =
+            this.player = new this.SpeechSDK.SpeakerAudioDestination();
+
+            // if (!this.synthesizer) {
+              let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
                   this.region
                 );
               
-              audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
+              let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
                 this.player
               );
-            }
+
               this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
                 speechConfig,
                 audioConfig
