@@ -449,7 +449,6 @@
             apiKey: "",
             region: "",
             SpeechSDK: window.SpeechSDK,
-            RecogSDK: window.SpeechSDK,
             recognizer: null,
             synthesizer: null,
             speaking: false,
@@ -1657,15 +1656,15 @@
           startRecognition() {
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
             let speechConfig =
-              this.RecogSDK.SpeechConfig.fromAuthorizationToken(
+              this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                 this.apiKey,
                 this.region
               );
             speechConfig.speechRecognitionLanguage = this.lang.value;
 
             let audioConfig =
-              this.RecogSDK.AudioConfig.fromDefaultMicrophoneInput();
-            this.recognizer = new this.RecogSDK.SpeechRecognizer(
+              this.SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+            this.recognizer = new this.SpeechSDK.SpeechRecognizer(
               speechConfig,
               audioConfig
             );
@@ -1676,7 +1675,7 @@
 
             this.recognizer.recognized = (s, e) => {
               if (
-                e.result.reason === this.RecogSDK.ResultReason.RecognizedSpeech
+                e.result.reason === this.SpeechSDK.ResultReason.RecognizedSpeech
               ) {
                 console.log(`RECOGNIZED: Text=${e.result.text}`);
                 if (!this.sending && !this.speaking) {
@@ -1684,7 +1683,7 @@
                   this.sendMessage("out");
                 }
               } else if (
-                e.result.reason === this.RecogSDK.ResultReason.NoMatch
+                e.result.reason === this.SpeechSDK.ResultReason.NoMatch
               ) {
                 console.log("NOMATCH: Speech could not be recognized.");
               } else {
@@ -1760,8 +1759,6 @@
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               this.speaking = false;
-              this.synthesizer.close();
-              this.synthesizer = undefined;
               // this.synthesizer.pause();
               // this.synthesizer.close()
             } finally {
