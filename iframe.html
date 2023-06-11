@@ -408,6 +408,27 @@
             style="background-color: orange"
           ></v-text-field> -->
         </v-container>
+          <v-dialog
+            v-model="dialog"
+            hide-overlay
+            persistent
+            width="300"
+          >
+            <v-card
+              color="primary"
+              dark
+            >
+              <v-card-text>
+                Please stand by
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+            <v-icon>mdi-play</v-icon>
+          </v-dialog>
       </template>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
@@ -1080,6 +1101,7 @@
               q: "お問合せ内容をお選びいただくか、ご質問内容をご入力ください。",
               a: [],
             },
+            dialg:false,
           };
         },
         async mounted() {
@@ -1600,9 +1622,14 @@
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
                 self.messages.push(message);
+                if(self.isSmartPhone()&&!this.mic)
+                  {
+                    self.dialg=true
+                  } else {
+                    if (!this.mic) self.textToSpeech(message.body);
+                  }
                 self.scrollMassage();
               }, 1100);
-              if (!this.mic) self.textToSpeech(message.body);
             }
           },
           jssend(string) {
