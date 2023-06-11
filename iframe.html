@@ -1772,8 +1772,8 @@
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
                 this.synthesizer.close();
-                this.synthesizer = undefined;
-                // this.synthesizer.close(()=>{this.startSynthesizer()})                
+                // this.synthesizer.close(()=>{this.startSynthesizer()})          
+                // this.synthesizer = undefined;
                 // this.synthesizer.dispose(true);
               });
             } catch (err) {
@@ -1786,7 +1786,7 @@
             }
           },
           startSynthesizer() {
-            // if (!this.synthesizer) {
+            if (!this.synthesizer) {
               let speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
@@ -1796,7 +1796,7 @@
               let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
                 this.player
               );
-
+            }
               this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
                 speechConfig,
                 audioConfig
