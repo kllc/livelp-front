@@ -409,14 +409,8 @@
           ></v-text-field> -->
         </v-container>
       </template>
-      <template v-if="app=='chat'&&dialog">
+      <template v-if="app=='chat' && dialog">
         <v-container style="padding: 0; background-color: #fff">
-          <v-dialog
-          v-model="dialog"
-          hide-overlay
-          persistent
-          width="300"
-          >
           <v-card
             color="primary"
             dark
@@ -430,7 +424,6 @@
               ></v-progress-linear>
             </v-card-text>
           </v-card>
-          </v-dialog>
         </v-container>
       </template> 
     </div>
