@@ -1101,7 +1101,7 @@
               q: "お問合せ内容をお選びいただくか、ご質問内容をご入力ください。",
               a: [],
             },
-            dialg:false,
+            dialog:false,
           };
         },
         async mounted() {
@@ -1600,7 +1600,7 @@
             }
           },
           json_chat() {
-            let message = this.messages.slice(-1)[0];
+            this.message = this.messages.slice(-1)[0];
             this.messages = this.messages.slice(0, -1);
 
             this.messages.push({
@@ -1610,7 +1610,7 @@
             this.scrollMassage();
 
             try {
-              this.json = JSON.parse(message.body);
+              this.json = JSON.parse(this.message.body);
               let self = this;
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
@@ -1621,13 +1621,8 @@
               let self = this;
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
-                self.messages.push(message);
-                if(self.isSmartPhone()&&!this.mic)
-                  {
-                    self.dialg=true
-                  } else {
-                    if (!this.mic) self.textToSpeech(message.body);
-                  }
+                self.messages.push(self.message);
+                if (!this.mic) self.textToSpeech(self.message.body);
                 self.scrollMassage();
               }, 1100);
             }
@@ -1742,6 +1737,7 @@
           async textToSpeech(text, start) {
             if (this.speaking && !start) return;
             this.speaking = true;
+            this.dialog=true;
 
             if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
