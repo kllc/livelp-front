@@ -1735,8 +1735,8 @@
             this.speaking = true;
             // this.dialog=true;
 
-            if (!this.player) {
-              this.player = new this.SpeechSDK.SpeakerAudioDestination();
+            // if (!this.player) {
+              // this.player = new this.SpeechSDK.SpeakerAudioDestination();
               // let self = this;
 
               // this.player.onAudioEnd = function (_) {
@@ -1745,10 +1745,32 @@
               // this.player.onAudioStart = function (_) {
               //   self.speaking = true;
               // };
-            } else {
-              this.player.resume()
-            }
-            this.startSynthesizer()
+            // } else {
+            //   this.player.resume()
+            // }
+            // this.startSynthesizer()
+
+            let player = new this.SpeechSDK.SpeakerAudioDestination();
+            
+            let speechConfig =
+              this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
+                this.apiKey,
+                this.region
+              );
+            
+            let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
+              this.player
+            );
+
+            // this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
+            //   speechConfig,
+            //   audioConfig
+            // );
+
+            let synthesizer = new this.SpeechSDK.SpeechSynthesizer(
+              speechConfig,
+              audioConfig
+            );
 
             let ssml =
               `
@@ -1769,9 +1791,9 @@
             try {
               // await synthesizer.speakTextAsync(text)
               confirm("confirm")
-              await this.synthesizer.speakSsmlAsync(ssml, (result) => {
+              await synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
-                this.synthesizer.close();
+                synthesizer.close();
                 // this.synthesizer.close(()=>{this.startSynthesizer()})                
                 // this.synthesizer = undefined;
                 // this.synthesizer.dispose(true);
@@ -1785,26 +1807,26 @@
               this.speaking = false;
             }
           },
-          startSynthesizer() {
-            // if (!this.synthesizer) {
-              let speechConfig =
-                this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
-                  this.apiKey,
-                  this.region
-                );
+          // startSynthesizer() {
+          //   // if (!this.synthesizer) {
+          //     let speechConfig =
+          //       this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
+          //         this.apiKey,
+          //         this.region
+          //       );
               
-              let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
-                this.player
-              );
+          //     let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
+          //       this.player
+          //     );
 
-              this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
-                speechConfig,
-                audioConfig
-              );
-            // } else {
-              // this.synthesizer.dispose(false);
-            // }
-          },
+          //     this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
+          //       speechConfig,
+          //       audioConfig
+          //     );
+          //   // } else {
+          //     // this.synthesizer.dispose(false);
+          //   // }
+          // },
           stopSpeaking() {
             if (this.player) {
               this.player.pause();
