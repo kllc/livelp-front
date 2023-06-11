@@ -409,13 +409,13 @@
           ></v-text-field> -->
         </v-container>
       </template>
-      <template v-if="app=='chat' && dialog">
+      <!-- <template v-if="app=='chat' && dialog">
           <v-card
             color="primary"
             style="position:fixed;margin: 80px 20px ;left: 0;top: 0;width: calc( 100dvw - 40px ) ;height: calc( 100dvh - 160px );"
           >
             <v-card-text>
-              <!-- {{message.body}} -->aa
+              
               <v-progress-linear
               indeterminate
               color="green"
@@ -424,7 +424,7 @@
           </v-card-text>
 
           </v-card>
-      </template> 
+      </template>  -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
@@ -1097,7 +1097,7 @@
               q: "お問合せ内容をお選びいただくか、ご質問内容をご入力ください。",
               a: [],
             },
-            dialog:false,
+            // dialog:false,
           };
         },
         async mounted() {
@@ -1733,7 +1733,7 @@
           async textToSpeech(text, start) {
             if (this.speaking && !start) return;
             this.speaking = true;
-            this.dialog=true;
+            // this.dialog=true;
 
             if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
@@ -1768,6 +1768,7 @@
               `;
             try {
               // await synthesizer.speakTextAsync(text)
+              confirm("confirm")
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
                 // this.synthesizer.close();
