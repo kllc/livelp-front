@@ -1751,12 +1751,16 @@
               // await synthesizer.speakTextAsync(text)
               await this.synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
+                this.synthesizer.close();
+                this.synthesizer = undefined;
                 // this.synthesizer.close(()=>{this.startSynthesizer()})                
                 // this.synthesizer.dispose(true);
               });
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               this.speaking = false;
+              this.synthesizer.close();
+              this.synthesizer = undefined;
               // this.synthesizer.pause();
               // this.synthesizer.close()
             } finally {
