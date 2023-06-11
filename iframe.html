@@ -449,6 +449,7 @@
             apiKey: "",
             region: "",
             SpeechSDK: window.SpeechSDK,
+            RecogSDK: window.SpeechSDK,
             recognizer: null,
             synthesizer: null,
             speaking: false,
@@ -1656,15 +1657,15 @@
           startRecognition() {
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
             let speechConfig =
-              this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
+              this.RecogSDK.SpeechConfig.fromAuthorizationToken(
                 this.apiKey,
                 this.region
               );
             speechConfig.speechRecognitionLanguage = this.lang.value;
 
             let audioConfig =
-              this.SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-            this.recognizer = new this.SpeechSDK.SpeechRecognizer(
+              this.RecogSDK.AudioConfig.fromDefaultMicrophoneInput();
+            this.recognizer = new this.RecogSDK.SpeechRecognizer(
               speechConfig,
               audioConfig
             );
@@ -1675,7 +1676,7 @@
 
             this.recognizer.recognized = (s, e) => {
               if (
-                e.result.reason === this.SpeechSDK.ResultReason.RecognizedSpeech
+                e.result.reason === this.RecogSDK.ResultReason.RecognizedSpeech
               ) {
                 console.log(`RECOGNIZED: Text=${e.result.text}`);
                 if (!this.sending && !this.speaking) {
@@ -1683,7 +1684,7 @@
                   this.sendMessage("out");
                 }
               } else if (
-                e.result.reason === this.SpeechSDK.ResultReason.NoMatch
+                e.result.reason === this.RecogSDK.ResultReason.NoMatch
               ) {
                 console.log("NOMATCH: Speech could not be recognized.");
               } else {
