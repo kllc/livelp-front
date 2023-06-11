@@ -420,7 +420,7 @@
           <v-card-text>
             {{dialgMessage}}
           </v-card-text>
-          <v-icon @click="textToSpeech(dialgMessage);">mdi-play</v-icon>
+          <v-icon @click="textToSpeech(dialogMessage);">mdi-play</v-icon>
           </v-card>
       </template> 
     </div>
@@ -1616,10 +1616,15 @@
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
                 self.messages.push(message);
-                if (!this.mic )
+                if (!this.mic)
                 {
-                  self.dialogMessage = message.body;
-                  self.dialog = true;
+                  if(isSmartPhone())
+                  {
+                    self.dialogMessage = message.body;
+                    self.dialog = true;
+                  } else {
+                    self.textToSpeech(message.body)
+                  }
                 } 
                 self.scrollMassage();
               }, 1100);
