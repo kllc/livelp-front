@@ -412,15 +412,16 @@
       <template v-if="app=='chat' && dialog">
           <v-card
             color="primary"
-            style="position:fixed;margin: 100px 20px ;left: 0;top: 0;width: calc( 100dvw - 40px ) ;height: calc( 100dvh - 200px );"
+            dark
+            style="position:fixed;margin: 80px 20px ;left: 0;top: 0;width: calc( 100dvw - 40px ) ;height: calc( 100dvh - 160px );"
           >
             <v-card-text>
               <!-- {{message.body}} -->aa
-            </v-card-text>
-            <v-progress-linear
-            indeterminate
-            color="green"
-          ></v-progress-linear>
+              <v-progress-linear
+              indeterminate
+              color="green"
+            ></v-progress-linear>
+          </v-card-text>
 
           </v-card>
       </template> 
