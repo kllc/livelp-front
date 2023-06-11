@@ -1618,7 +1618,7 @@
                 self.messages.push(message);
                 if (!this.mic)
                 {
-                  if(isSmartPhone())
+                  if(self.isSmartPhone())
                   {
                     self.dialogMessage = message.body;
                     self.dialog = true;
