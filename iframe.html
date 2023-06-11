@@ -410,10 +410,9 @@
         </v-container>
       </template>
       <template v-if="app=='chat' && dialog">
-        <v-container style="padding: 0; background-color: #fff">
           <v-card
             color="primary"
-            style="position:fixed;margin: 100px 20px ;left: 0;top: 0;width: calc( 100dvw - 200px ) ;height: calc( 100dvh - 40px );"
+            style="position:fixed;margin: 100px 20px ;left: 0;top: 0;width: calc( 100dvw - 40px ) ;height: calc( 100dvh - 200px );"
           >
             <v-card-text>
               Please stand by
@@ -424,7 +423,6 @@
               ></v-progress-linear>
             </v-card-text>
           </v-card>
-        </v-container>
       </template> 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
