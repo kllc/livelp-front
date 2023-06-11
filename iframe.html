@@ -409,22 +409,20 @@
           ></v-text-field> -->
         </v-container>
       </template>
-      <!-- <template v-if="app=='chat' && dialog">
+      <template v-if="app=='chat' && dialog">
           <v-card
             color="primary"
             style="position:fixed;margin: 80px 20px ;left: 0;top: 0;width: calc( 100dvw - 40px ) ;height: calc( 100dvh - 160px );"
           >
-            <v-card-text>
-              
-              <v-progress-linear
-              indeterminate
-              color="green"
-            ></v-progress-linear>
-            <v-icon>mdi-play</v-icon>
+          <v-card-title>
+            Voice 
+          </v-card-title>
+          <v-card-text>
+            {{dialgMessage}}
           </v-card-text>
-
+          <v-icon @click="textToSpeech(dialgMessage);">mdi-play</v-icon>
           </v-card>
-      </template>  -->
+      </template> 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
@@ -1088,7 +1086,7 @@
                 author: "me",
               },
             ],
-            message:"",
+            dialogMessage:"",
             admin: searchParams.get("admin"),
             chatWidth: "600px",
             timeout: false,
@@ -1097,7 +1095,7 @@
               q: "お問合せ内容をお選びいただくか、ご質問内容をご入力ください。",
               a: [],
             },
-            // dialog:false,
+            dialog:false,
           };
         },
         async mounted() {
@@ -1596,7 +1594,7 @@
             }
           },
           json_chat() {
-            this.message = this.messages.slice(-1)[0];
+            let message = this.messages.slice(-1)[0];
             this.messages = this.messages.slice(0, -1);
 
             this.messages.push({
@@ -1606,7 +1604,7 @@
             this.scrollMassage();
 
             try {
-              this.json = JSON.parse(this.message.body);
+              this.json = JSON.parse(message.body);
               let self = this;
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
@@ -1617,8 +1615,12 @@
               let self = this;
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
-                self.messages.push(self.message);
-                if (!this.mic && confirm(self.message.body)) self.textToSpeech(self.message.body);
+                self.messages.push(message);
+                if (!this.mic )
+                {
+                  self.dialogMessage = message.body;
+                  self.dialog = true;
+                } 
                 self.scrollMassage();
               }, 1100);
             }
