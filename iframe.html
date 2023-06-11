@@ -418,9 +418,9 @@
             Voice 
           </v-card-title>
           <v-card-text>
-            {{dialgMessage}}
+            {{dialogMessage}}
           </v-card-text>
-          <v-icon @click="textToSpeech(dialogMessage);">mdi-play</v-icon>
+          <v-icon x-large @click="textToSpeech(dialogMessage);dialog = false">mdi-play</v-icon>
           </v-card>
       </template> 
     </div>
