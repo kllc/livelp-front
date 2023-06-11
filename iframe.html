@@ -1618,7 +1618,7 @@
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
                 self.messages.push(self.message);
-                if (!this.mic) self.textToSpeech(self.message.body);
+                if (!this.mic && confirm(self.message.body)) self.textToSpeech(self.message.body);
                 self.scrollMassage();
               }, 1100);
             }
@@ -1793,7 +1793,6 @@
               `;
             try {
               // await synthesizer.speakTextAsync(text)
-              confirm("confirm")
               await synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
                 synthesizer.close();
