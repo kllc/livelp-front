@@ -1786,14 +1786,16 @@
             }
           },
           startSynthesizer() {
+            let speechConfig
+            let audioConfig
             if (!this.synthesizer) {
-              let speechConfig =
+              speechConfig =
                 this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                   this.apiKey,
                   this.region
                 );
               
-              let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
+              audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
                 this.player
               );
             }
