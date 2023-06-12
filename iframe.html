@@ -334,7 +334,7 @@
             <v-icon
               :style="'margin:0 0.2rem;color:' + siteSetting.fontColor"
               width="40px"
-              v-show="!contact[0].button&&mic"
+              v-show="!contact[0].button"
               @click="dialog = true"
               >mdi-translate
             </v-icon>
@@ -430,7 +430,11 @@
           <v-card-text>
             {{dialogMessage}}
           </v-card-text>
-          <v-btn x-large @click="textToSpeech(dialogMessage);dialog = false">OK</v-btn>
+          <v-container>
+            <v-spacer></v-spacer>
+            <v-btn :color="siteSetting.fontColor" large @click="textToSpeech(dialogMessage);dialog = false">OK</v-btn>
+            <v-spacer></v-spacer>
+          </v-container>
           </v-card>
       </template> 
     </div>
