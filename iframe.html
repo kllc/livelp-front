@@ -332,17 +332,10 @@
                 </svg> -->
             </v-btn>
             <v-icon
-              :color="siteSetting.fontColor"
+              :style="'margin:0 0.2rem;color:' + siteSetting.fontColor"
               width="40px"
               v-show="!contact[0].button&&mic"
-              @click=""
-              >mdi-web
-            </v-icon>
-            <v-icon
-              :color="siteSetting.fontColor"
-              width="40px"
-              v-show="!contact[0].button&&mic"
-              @click=""
+              @click="dialog = true"
               >mdi-translate
             </v-icon>
             <v-icon
@@ -432,9 +425,12 @@
             Voice 
           </v-card-title>
           <v-card-text>
+            {{youMessage}}
+          </v-card-text>
+          <v-card-text>
             {{dialogMessage}}
           </v-card-text>
-          <v-icon x-large @click="textToSpeech(dialogMessage);dialog = false">mdi-play</v-icon>
+          <v-btn x-large @click="textToSpeech(dialogMessage);dialog = false">OK</v-btn>
           </v-card>
       </template> 
     </div>
