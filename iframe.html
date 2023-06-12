@@ -335,6 +335,20 @@
               :color="siteSetting.fontColor"
               width="40px"
               v-show="!contact[0].button&&mic"
+              @click=""
+              >mdi-web
+            </v-icon>
+            <v-icon
+              :color="siteSetting.fontColor"
+              width="40px"
+              v-show="!contact[0].button&&mic"
+              @click=""
+              >mdi-translate
+            </v-icon>
+            <v-icon
+              :color="siteSetting.fontColor"
+              width="40px"
+              v-show="!contact[0].button&&mic"
               @click="textToSpeech('音声サービスを開始します');startRecognition();mic=false;"
               >mdi-headset-off
             </v-icon>
