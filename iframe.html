@@ -335,7 +335,7 @@
               :color="siteSetting.fontColor"
               width="40px"
               v-show="!contact[0].button&&mic"
-              @click="textToSpeech('音声サービスを開始します', true);startRecognition();mic=false;"
+              @click="textToSpeech('音声サービスを開始します');startRecognition();mic=false;"
               >mdi-headset-off
             </v-icon>
             <v-icon
@@ -1737,8 +1737,8 @@
             );
             this.stopSpeaking();
           },
-          async textToSpeech(text, start) {
-            if (this.speaking && !start) return;
+          async textToSpeech(text) {
+            if (this.speaking ) return;
             this.speaking = true;
             // this.dialog=true;
 
