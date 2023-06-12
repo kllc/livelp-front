@@ -430,10 +430,8 @@
           <v-card-text>
             {{dialogMessage}}
           </v-card-text>
-          <v-container>
-            <v-spacer></v-spacer>
-            <v-btn :color="siteSetting.fontColor" large @click="textToSpeech(dialogMessage);dialog = false">OK</v-btn>
-            <v-spacer></v-spacer>
+          <v-container style="bottom: 0;">            
+            <v-btn :style="'color:' + siteSetting.fontColor" large @click="textToSpeech(dialogMessage);dialog = false">OK</v-btn>
           </v-container>
           </v-card>
       </template> 
