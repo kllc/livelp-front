@@ -1807,7 +1807,11 @@
                 e.result.reason === this.SpeechSDK.ResultReason.RecognizedSpeech
               ) {
                 console.log(`RECOGNIZED: Text=${e.result.text}`);
-                if (!this.sending && !this.speaking && !this.dialogMessageRec) {
+                if (
+                  !this.sending &&
+                  !this.speaking &&
+                  this.dialogMessageRec == ""
+                ) {
                   this.dialogMessageRec = e.result.text;
                   this.youMessage = e.result.text;
                   this.sendMessage("out");
