@@ -345,7 +345,7 @@
                 :style="'margin:0 0.4rem;color:' + siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button"
-                @click="dialog1 = true"
+                @click="dialog1 = !dialog1"
                 >mdi-translate
               </v-icon>
               <v-icon
@@ -359,7 +359,7 @@
                 :color="siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button&&!mic"
-                @click="stopRecognition();mic=true;"
+                @click="stopRecognition();mic=true;dialog2=false"
                 >mdi-headset
               </v-icon>
               <v-icon
@@ -1788,6 +1788,7 @@
             );
 
             this.recognizer.recognizing = (s, e) => {
+              this.dialog2 = true;
               console.log(`RECOGNIZING: Text=${e.result.text}`);
             };
 
