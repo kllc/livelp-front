@@ -491,28 +491,25 @@
             >
               <v-card-title class="text-h6"> Voice </v-card-title>
               <v-progress-linear
-                color="deep-purple-accent-4"
+                :style="'background-color:' + siteSetting.bgColor"
                 indeterminate
                 rounded
                 height="6"
               ></v-progress-linear>
               <v-card-text> {{youMessage}} </v-card-text>
               <v-progress-linear
-                color="deep-purple-accent-4"
+                :style="'background-color:' + siteSetting.bgColor"
                 indeterminate
-                rounded
                 height="6"
               ></v-progress-linear>
               <v-card-text> {{dialogMessage}} </v-card-text>
-              <v-container style="position: absolute; bottom: 0">
-                <v-btn
-                  :color="siteSetting.bgColor"
-                  :style="'position:absolute;bottom:10px;width: calc(100% - 24px);color:' + siteSetting.fontColor"
-                  large
-                  @click="textToSpeech(dialogMessage);dialog2 = false"
-                  >OK</v-btn
-                >
-              </v-container>
+              <v-btn
+                :color="siteSetting.bgColor"
+                :style="'position:absolute;bottom:10px;width: calc(100% - 24px);color:' + siteSetting.fontColor"
+                large
+                @click="textToSpeech(dialogMessage);dialog2 = false"
+                >OK</v-btn
+              >
             </v-container>
           </v-card>
         </template>
