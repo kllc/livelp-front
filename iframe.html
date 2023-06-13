@@ -438,7 +438,6 @@
             "
           >
             <v-container style="position: relative; width: 100%; height: 100%">
-              <v-card-te class="text-h6 pa-4"> Voice </v-card-title>
               <v-combobox
                 label="Language"
                 v-model="lang"
@@ -456,7 +455,7 @@
               ></v-autocomplete>
               <v-btn
                 :color="siteSetting.bgColor"
-                :style="'positon:absolute;bottom:0;width:100%;color:' + siteSetting.fontColor"
+                :style="'positon:absolute !important;bottom:10px;width:100%;color:' + siteSetting.fontColor"
                 large
                 @click="dialog1 = false"
                 >OK</v-btn
