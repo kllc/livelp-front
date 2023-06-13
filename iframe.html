@@ -1865,6 +1865,10 @@
 
             let player = new this.SpeechSDK.SpeakerAudioDestination();
 
+            player.onAudioEnd = function (_) {
+              this.speaking = false;
+            };
+
             let speechConfig =
               this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                 this.apiKey,
@@ -1906,7 +1910,7 @@
             try {
               // await synthesizer.speakTextAsync(text)
               await synthesizer.speakSsmlAsync(ssml, (result) => {
-                this.speaking = false;
+                // this.speaking = false;
                 synthesizer.close();
                 // this.synthesizer.close(()=>{this.startSynthesizer()})
                 // this.synthesizer = undefined;
