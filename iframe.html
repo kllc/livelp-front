@@ -496,10 +496,10 @@
                 rounded
                 height="6"
               ></v-progress-linear>
-              <v-card-text> {{youMessage}} </v-card-text>
+              <v-card-text> {{dialogMessageRec}} </v-card-text>
               <v-progress-linear
                 v-show="!dialogMessage"
-                :style="'width: 60%;background-color:' + siteSetting.bgColor"
+                :style="'margin-left:auto; margin-right:auto; width: 60%;background-color:' + siteSetting.bgColor"
                 indeterminate
                 height="6"
               ></v-progress-linear>
@@ -1179,6 +1179,7 @@
               },
             ],
             dialogMessage: "",
+            dialogMessageRec: "",
             admin: searchParams.get("admin"),
             chatWidth: "600px",
             timeout: false,
@@ -1786,6 +1787,8 @@
             );
 
             this.recognizer.recognizing = (s, e) => {
+              this.dialogMessageRec = e.result.text;
+              this.dialogMessage = "";
               this.dialog2 = true;
               console.log(`RECOGNIZING: Text=${e.result.text}`);
             };
