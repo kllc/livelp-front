@@ -273,54 +273,53 @@
   </head>
   <body>
     <div id="app">
-      <v-app>
-        <template v-if="app=='button'&&(contact[0].status||admin==='admin')">
-          <!-- <v-btn
+      <template v-if="app=='button'&&(contact[0].status||admin==='admin')">
+        <!-- <v-btn
           v-show="contact[0].button||admin==='admin'"
           @click="go_zoom()"
           :style="style"
         >
           <v-icon x-large>{{siteSetting.icon}}</v-icon>
         </v-btn> -->
-          <!-- <div
+        <!-- <div
           v-show="contact[0].button||admin==='admin'"
           style="display: block; height: 10px"
         ></div> -->
-          <!-- <v-btn v-show="!contact[0].button||contact[0].chat||admin==='admin'" :disabled="!contact[0].chat&&admin!=='admin'" @click="style_chat()" :style="style"> -->
-          <v-btn
-            :disabled="!contact[0].chat&&admin!=='admin'"
-            @click="style_chat()"
-            :style="style"
-            :class="contact[0].chat&&contact[0].action=='pulse'?'pulse-btn yureru-js':contact[0].chat&&contact[0].action=='move'?'mocchiri':contact[0].chat&&contact[0].action=='shake'?'bururi':contact[0].chat&&contact[0].action=='jump'?'patsun':''"
+        <!-- <v-btn v-show="!contact[0].button||contact[0].chat||admin==='admin'" :disabled="!contact[0].chat&&admin!=='admin'" @click="style_chat()" :style="style"> -->
+        <v-btn
+          :disabled="!contact[0].chat&&admin!=='admin'"
+          @click="style_chat()"
+          :style="style"
+          :class="contact[0].chat&&contact[0].action=='pulse'?'pulse-btn yureru-js':contact[0].chat&&contact[0].action=='move'?'mocchiri':contact[0].chat&&contact[0].action=='shake'?'bururi':contact[0].chat&&contact[0].action=='jump'?'patsun':''"
+        >
+          <v-icon x-large>{{siteSetting.icon}}</v-icon>
+        </v-btn>
+      </template>
+      <template v-if="app=='chat'">
+        <v-container style="padding: 0; background-color: #fff">
+          <v-row
+            :style="'margin: 0 ;background-color: ' + siteSetting.bgColor"
+            class="chat-messagae"
           >
-            <v-icon x-large>{{siteSetting.icon}}</v-icon>
-          </v-btn>
-        </template>
-        <template v-if="app=='chat'">
-          <v-container style="padding: 0; background-color: #fff">
-            <v-row
-              :style="'margin: 0 ;background-color: ' + siteSetting.bgColor"
-              class="chat-messagae"
+            <v-spacer></v-spacer>
+            <span :style="'font-size: 1em;color:' + siteSetting.fontColor"
+              >{{contact[0].name||'Online Chat'}}</span
             >
-              <v-spacer></v-spacer>
-              <span :style="'font-size: 1em;color:' + siteSetting.fontColor"
-                >{{contact[0].name||'Online Chat'}}</span
+            <v-spacer></v-spacer>
+            <v-btn
+              :color="siteSetting.fontColor"
+              v-show="contact[0].button"
+              @click="go_zoom()"
+              class="yureru-js"
+            >
+              <span
+                :style="'text-transform: none;font-weight:600;font-size: 1.5em;color:' + siteSetting.bgColor"
+                >Live</span
               >
-              <v-spacer></v-spacer>
-              <v-btn
-                :color="siteSetting.fontColor"
-                v-show="contact[0].button"
-                @click="go_zoom()"
-                class="yureru-js"
+              <v-icon x-large :style="'color: ' + siteSetting.bgColor"
+                >mdi-video-box</v-icon
               >
-                <span
-                  :style="'text-transform: none;font-weight:600;font-size: 1.5em;color:' + siteSetting.bgColor"
-                  >Live</span
-                >
-                <v-icon x-large :style="'color: ' + siteSetting.bgColor"
-                  >mdi-video-box</v-icon
-                >
-                <!-- <svg
+              <!-- <svg
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="none"
                   style="cursor: pointer"
@@ -331,31 +330,31 @@
                   <circle cx="10" cy="40" r="22" :fill="siteSetting.fontColor" />
                   <polygon points="0,26 0,54 27,40" :fill="siteSetting.bgColor" />
                 </svg> -->
-              </v-btn>
-              <v-icon
-                :style="'margin:0 0.2rem;color:' + siteSetting.fontColor"
-                width="40px"
-                v-show="!contact[0].button"
-                @click="dialog1 = true"
-                >mdi-translate
-              </v-icon>
-              <v-icon
-                :color="siteSetting.fontColor"
-                width="40px"
-                v-show="!contact[0].button&&mic"
-                @click="textToSpeech('音声サービスを開始します');startRecognition();mic=false;"
-                >mdi-headset-off
-              </v-icon>
-              <v-icon
-                :color="siteSetting.fontColor"
-                width="40px"
-                v-show="!contact[0].button&&!mic"
-                @click="stopRecognition();mic=true;"
-                >mdi-headset
-              </v-icon>
-              <v-icon
-                :style="'margin:0 0.8rem;color:' + siteSetting.fontColor"
-                @click="app='button'
+            </v-btn>
+            <v-icon
+              :style="'margin:0 0.2rem;color:' + siteSetting.fontColor"
+              width="40px"
+              v-show="!contact[0].button"
+              @click="dialog1 = true"
+              >mdi-translate
+            </v-icon>
+            <v-icon
+              :color="siteSetting.fontColor"
+              width="40px"
+              v-show="!contact[0].button&&mic"
+              @click="textToSpeech('音声サービスを開始します');startRecognition();mic=false;"
+              >mdi-headset-off
+            </v-icon>
+            <v-icon
+              :color="siteSetting.fontColor"
+              width="40px"
+              v-show="!contact[0].button&&!mic"
+              @click="stopRecognition();mic=true;"
+              >mdi-headset
+            </v-icon>
+            <v-icon
+              :style="'margin:0 0.8rem;color:' + siteSetting.fontColor"
+              @click="app='button'
               scope = 'site'
               connect_site()
               style_init()
@@ -363,49 +362,49 @@
               stopRecognition();mic=true;
               sending = false;
               "
-                >mdi-close</v-icon
-              ></v-row
+              >mdi-close</v-icon
+            ></v-row
+          >
+          <section
+            ref="chatArea"
+            class="chat-area"
+            :style="'background-color:rgba(240,240,240,0.5);width:' + chatWidth + ';'"
+          >
+            <div
+              class="message"
+              style="margin-bottom: 0.5em; color: #333"
+              v-if="contact[0].ad"
             >
-            <section
-              ref="chatArea"
-              class="chat-area"
-              :style="'background-color:rgba(240,240,240,0.5);width:' + chatWidth + ';'"
+              <span v-html="ad()"></span>
+            </div>
+            <p
+              v-for="message in messages"
+              :style="message.author === 'you' ? 'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor : false"
+              :class="{ 'message message-out': message.author === 'you', 'message message-in': message.author === 'me' }"
             >
-              <div
-                class="message"
-                style="margin-bottom: 0.5em; color: #333"
-                v-if="contact[0].ad"
-              >
-                <span v-html="ad()"></span>
-              </div>
-              <p
-                v-for="message in messages"
-                :style="message.author === 'you' ? 'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor : false"
-                :class="{ 'message message-out': message.author === 'you', 'message message-in': message.author === 'me' }"
-              >
-                <span v-html="markp(message.body)"></span>
-                <!-- {{ message.body }} -->
-              </p>
-            </section>
-            <v-row style="margin: 0" class="chat-messagae">
-              <input
-                type="text"
-                name=""
-                placeholder="Type your message"
-                v-model="youMessage"
-                style="
-                  outline: none;
-                  background-color: #fff;
-                  padding: 0 1.5rem;
-                  width: calc(100% - 40px);
-                "
-                @keyup.enter="sendMessage('out')"
-              />
-              <v-icon width="40px" x-large @click="sendMessage('out')"
-                >mdi-send</v-icon
-              >
-            </v-row>
-            <!-- <v-text-field
+              <span v-html="markp(message.body)"></span>
+              <!-- {{ message.body }} -->
+            </p>
+          </section>
+          <v-row style="margin: 0" class="chat-messagae">
+            <input
+              type="text"
+              name=""
+              placeholder="Type your message"
+              v-model="youMessage"
+              style="
+                outline: none;
+                background-color: #fff;
+                padding: 0 1.5rem;
+                width: calc(100% - 40px);
+              "
+              @keyup.enter="sendMessage('out')"
+            />
+            <v-icon width="40px" x-large @click="sendMessage('out')"
+              >mdi-send</v-icon
+            >
+          </v-row>
+          <!-- <v-text-field
             class="chat-messagae"
             autofocus
             label="Type your message"
@@ -415,8 +414,9 @@
             @keyup.enter="sendMessage('out')"
             style="background-color: orange"
           ></v-text-field> -->
-          </v-container>
-        </template>
+        </v-container>
+      </template>
+      <v-app>
         <template v-if="app=='chat' && dialog1">
           <v-card
             style="
