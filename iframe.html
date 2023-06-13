@@ -1919,8 +1919,8 @@
               // await synthesizer.speakTextAsync(text)
               await synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
-                this.startRecognition();
                 synthesizer.close();
+                this.startRecognition();
                 // this.synthesizer.close(()=>{this.startSynthesizer()})
                 // this.synthesizer = undefined;
                 // this.synthesizer.dispose(true);
