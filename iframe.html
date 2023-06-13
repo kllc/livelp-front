@@ -35,6 +35,9 @@
         justify-content: space-around;
         align-items: center;
       }
+      .v-application--wrap {
+        min-height: 0vh !important;
+      }
       .chat-title {
         height: 3rem;
       }
@@ -333,7 +336,7 @@
                 </svg> -->
               </v-btn>
               <v-icon
-                :style="'margin:0 0.2rem;color:' + siteSetting.fontColor"
+                :style="'margin:0 0.4rem;color:' + siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button"
                 @click="dialog1 = true"
