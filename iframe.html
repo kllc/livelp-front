@@ -1808,14 +1808,15 @@
                 e.result.reason === this.SpeechSDK.ResultReason.RecognizedSpeech
               ) {
                 console.log(`RECOGNIZED: Text=${e.result.text}`);
-                if (
-                  !this.sending &&
-                  !this.speaking &&
-                  this.dialogMessageRec == ""
-                ) {
-                  this.dialogMessageRec = e.result.text;
-                  this.youMessage = e.result.text;
-                  this.sendMessage("out");
+                if (!this.sending && !this.speaking) {
+                  if (this.dialog2 == true && this.dialogMessageRec == "") {
+                    this.dialogMessageRec = e.result.text;
+                    this.youMessage = e.result.text;
+                    this.sendMessage("out");
+                  } else if (this.dialog2 == false) {
+                    this.youMessage = e.result.text;
+                    this.sendMessage("out");
+                  }
                 }
               } else if (
                 e.result.reason === this.SpeechSDK.ResultReason.NoMatch
@@ -1920,11 +1921,11 @@
               await synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
                 synthesizer.close();
-                this.startRecognition();
                 // this.synthesizer.close(()=>{this.startSynthesizer()})
                 // this.synthesizer = undefined;
                 // this.synthesizer.dispose(true);
               });
+              this.startRecognition();
             } catch (err) {
               console.error("Error synthesizing speech:", err);
               this.speaking = false;
