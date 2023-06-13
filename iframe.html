@@ -489,7 +489,11 @@
                 padding: 12px;
               "
             >
-              <v-card-title>Voice Reading</v-card-title>
+              <v-card-title
+                :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
+                >Voice Reading</v-card-title
+              >
+              <v-divider></v-divider>
               <p
                 :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
                 class="pa-4 message message-out"
