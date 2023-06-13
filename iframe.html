@@ -490,10 +490,10 @@
               "
             >
               <v-card-title
+                class="mb-4"
                 :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
                 >Voice Reading</v-card-title
               >
-              <v-divider></v-divider>
               <p
                 :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
                 class="message message-out"
@@ -1795,7 +1795,7 @@
             );
 
             this.recognizer.recognizing = (s, e) => {
-              if (self.isSmartPhone()) {
+              if (this.isSmartPhone()) {
                 this.dialogMessage = "";
                 this.dialog2 = true;
               }
