@@ -489,16 +489,21 @@
                 padding: 12px;
               "
             >
-              <v-card>
-                <p class="message message-out">{{dialogMessageRec}}</p>
-                <v-progress-linear
-                  v-show="!dialogMessage"
-                  :style="'margin-left:auto; margin-right:auto; width: 60%;background-color:' + siteSetting.bgColor"
-                  indeterminate
-                  height="6"
-                ></v-progress-linear>
-                <p class="message message-in">{{dialogMessage}}</p>
-              </v-card>
+              <div class="my-4"></div>
+              <p
+                :style="message.author === 'you' ? 'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor : false"
+                class="message message-out"
+              >
+                {{dialogMessageRec}}
+              </p>
+              <div class="my-6"></div>
+              <v-progress-linear
+                v-show="!dialogMessage"
+                :style="'margin-left:auto; margin-right:auto; width: 60%;background-color:' + siteSetting.bgColor"
+                indeterminate
+                height="6"
+              ></v-progress-linear>
+              <p class="message message-in">{{dialogMessage}}</p>
               <v-btn
                 :color="siteSetting.bgColor"
                 :style="'position:absolute;bottom:10px;width: calc(100% - 24px);color:' + siteSetting.fontColor"
