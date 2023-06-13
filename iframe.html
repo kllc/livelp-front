@@ -496,14 +496,18 @@
                 rounded
                 height="6"
               ></v-progress-linear>
-              <v-card-text> {{dialogMessageRec}} </v-card-text>
-              <v-progress-linear
-                v-show="!dialogMessage"
-                :style="'margin-left:auto; margin-right:auto; width: 60%;background-color:' + siteSetting.bgColor"
-                indeterminate
-                height="6"
-              ></v-progress-linear>
-              <v-card-text> {{dialogMessage}} </v-card-text>
+              <v-card>
+                <v-card-text> {{dialogMessageRec}} </v-card-text>
+              </v-card>
+              <v-card>
+                <v-progress-linear
+                  v-show="!dialogMessage"
+                  :style="'margin-left:auto; margin-right:auto; width: 60%;background-color:' + siteSetting.bgColor"
+                  indeterminate
+                  height="6"
+                ></v-progress-linear>
+                <v-card-text> {{dialogMessage}} </v-card-text>
+              </v-card>
               <v-btn
                 :color="siteSetting.bgColor"
                 :style="'position:absolute;bottom:10px;width: calc(100% - 24px);color:' + siteSetting.fontColor"
