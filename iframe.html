@@ -345,21 +345,21 @@
                 :style="'margin:0 0.4rem;color:' + siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button"
-                @click="dialog1 = !dialog1"
+                @click="dialog1 = !dialog1;stopRecognition();mic=true;dialog2=false"
                 >mdi-translate
               </v-icon>
               <v-icon
                 :color="siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button&&mic"
-                @click="startRecognition();mic=false;"
+                @click="startRecognition();mic=false;dialog1=false"
                 >mdi-headset-off
               </v-icon>
               <v-icon
                 :color="siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button&&!mic"
-                @click="stopRecognition();mic=true;dialog2=false"
+                @click="stopRecognition();mic=true;dialog2=false;dialog1=false"
                 >mdi-headset
               </v-icon>
               <v-icon
