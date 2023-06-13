@@ -345,7 +345,7 @@
                 :style="'margin:0 0.4rem;color:' + siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button"
-                @click="dialog1 = !dialog1;stopRecognition();mic=true;dialog2=false"
+                @click="dialog1 = !dialog1;stopRecognition();mic=true;dialogMessageRec='';dialog2 = false"
                 >mdi-translate
               </v-icon>
               <v-icon
@@ -359,7 +359,7 @@
                 :color="siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button&&!mic"
-                @click="stopRecognition();mic=true;dialog2=false;dialog1=false"
+                @click="stopRecognition();mic=true;dialogMessageRec='';dialog2 = false;dialog1=false"
                 >mdi-headset
               </v-icon>
               <v-icon
@@ -496,7 +496,7 @@
               <v-divider></v-divider>
               <p
                 :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
-                class="pa-4 message message-out"
+                class="message message-out"
               >
                 {{dialogMessageRec}}
               </p>
@@ -507,14 +507,14 @@
                 indeterminate
                 height="10"
               ></v-progress-linear>
-              <p v-show="dialogMessage" class="pa-4 message message-in">
+              <p v-show="dialogMessage" class="message message-in">
                 {{dialogMessage}}
               </p>
               <v-btn
                 :color="siteSetting.bgColor"
                 :style="'position:absolute;bottom:10px;width: calc(100% - 24px);color:' + siteSetting.fontColor"
                 large
-                @click="textToSpeech(dialogMessage);dialog2 = false"
+                @click="textToSpeech(dialogMessage);dialogMessageRec='';dialog2 = false"
                 >OK</v-btn
               >
             </v-container>
@@ -1465,11 +1465,10 @@
                 // 実行する処理 //式が値2に当てはまる場合に実行される
                 if (this.sending) {
                   if (this.app != "chat") {
-                    this.app = "chat";
-                    this.style_chat();
+                    // this.app = "chat";
+                    // this.style_chat();
                   }
                   this.timeout = false;
-
                   this.messages = data.data;
                   this.json_chat();
                 }
@@ -1796,9 +1795,10 @@
             );
 
             this.recognizer.recognizing = (s, e) => {
-              this.dialogMessageRec = e.result.text;
-              this.dialogMessage = "";
-              this.dialog2 = true;
+              if (self.isSmartPhone()) {
+                this.dialogMessage = "";
+                this.dialog2 = true;
+              }
               console.log(`RECOGNIZING: Text=${e.result.text}`);
             };
 
@@ -1807,7 +1807,8 @@
                 e.result.reason === this.SpeechSDK.ResultReason.RecognizedSpeech
               ) {
                 console.log(`RECOGNIZED: Text=${e.result.text}`);
-                if (!this.sending && !this.speaking) {
+                if (!this.sending && !this.speaking && !this.dialogMessageRec) {
+                  this.dialogMessageRec = e.result.text;
                   this.youMessage = e.result.text;
                   this.sendMessage("out");
                 }
