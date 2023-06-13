@@ -352,7 +352,7 @@
                 :color="siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button&&mic"
-                @click="startRecognition();mic=false;dialog1=false"
+                @click="initRecognition();mic=false;dialog1=false"
                 >mdi-headset-off
               </v-icon>
               <v-icon
@@ -1779,7 +1779,7 @@
               console.log("Got an authorization token: " + token);
             };
           },
-          startRecognition() {
+          initRecognition() {
             // let speechConfig = this.SpeechSDK.SpeechConfig.fromSubscription(
             let speechConfig =
               this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
@@ -1821,7 +1821,10 @@
                 alert(1);
               }
             };
-
+            this.startRecognition();
+          },
+          startRecognition() {
+            if (!this.recognizer) return;
             this.recognizer.startContinuousRecognitionAsync(
               () => {
                 console.log("Recognition started");
@@ -1846,6 +1849,7 @@
           async textToSpeech(text) {
             if (this.speaking) return;
             this.speaking = true;
+            this.stopRecognition();
             // this.dialog=true;
 
             // if (!this.player) {
@@ -1865,9 +1869,9 @@
 
             let player = new this.SpeechSDK.SpeakerAudioDestination();
 
-            player.onAudioEnd = function (_) {
-              this.speaking = false;
-            };
+            // player.onAudioEnd = function (_) {
+            //   this.speaking = false;
+            // };
 
             let speechConfig =
               this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
@@ -1910,7 +1914,8 @@
             try {
               // await synthesizer.speakTextAsync(text)
               await synthesizer.speakSsmlAsync(ssml, (result) => {
-                // this.speaking = false;
+                this.speaking = false;
+                this.startRecognition();
                 synthesizer.close();
                 // this.synthesizer.close(()=>{this.startSynthesizer()})
                 // this.synthesizer = undefined;
