@@ -352,7 +352,7 @@
                 :color="siteSetting.fontColor"
                 width="40px"
                 v-show="!contact[0].button&&mic"
-                @click="textToSpeech('音声サービスを開始します');startRecognition();mic=false;"
+                @click="startRecognition();mic=false;"
                 >mdi-headset-off
               </v-icon>
               <v-icon
@@ -1267,6 +1267,9 @@
           // メッセージ取れたら何もしない。
           if (!this.get_message()) {
             this.json_chat();
+          }
+          if (this.siteSetting.lang) {
+            this.lang = this.siteSetting.lang;
           }
           this.changeVoice();
         },
