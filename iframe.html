@@ -489,24 +489,15 @@
                 padding: 12px;
               "
             >
-              <v-progress-linear
-                :bg-color="siteSetting.bgColor"
-                :color="siteSetting.fontColor"
-                indeterminate
-                rounded
-                height="6"
-              ></v-progress-linear>
               <v-card>
-                <v-card-text> {{dialogMessageRec}} </v-card-text>
-              </v-card>
-              <v-card>
+                <p class="message message-out">{{dialogMessageRec}}</p>
                 <v-progress-linear
                   v-show="!dialogMessage"
                   :style="'margin-left:auto; margin-right:auto; width: 60%;background-color:' + siteSetting.bgColor"
                   indeterminate
                   height="6"
                 ></v-progress-linear>
-                <v-card-text> {{dialogMessage}} </v-card-text>
+                <p class="message message-in">{{dialogMessage}}</p>
               </v-card>
               <v-btn
                 :color="siteSetting.bgColor"
