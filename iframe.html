@@ -365,13 +365,13 @@
               <v-icon
                 :style="'margin:0 0.8rem;color:' + siteSetting.fontColor"
                 @click="app='button'
-              scope = 'site'
-              connect_site()
-              style_init()
-              style_change()
-              stopRecognition();mic=true;
-              sending = false;
-              "
+                scope = 'site'
+                connect_site()
+                style_init()
+                style_change()
+                stopRecognition();mic=true;
+                sending = false;
+                "
                 >mdi-close</v-icon
               ></v-row
             >
@@ -491,7 +491,7 @@
             >
               <div class="my-4"></div>
               <p
-                :style="message.author === 'you' ? 'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor : false"
+                :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor : false"
                 class="message message-out"
               >
                 {{dialogMessageRec}}
