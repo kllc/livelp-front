@@ -445,8 +445,8 @@
                 padding: 12px;
               "
             >
+              <v-card-text>Language</v-card-text>
               <v-combobox
-                label="Language"
                 v-model="lang"
                 solo
                 :items="langItems"
@@ -454,8 +454,8 @@
                 item-value="value"
                 @change="changeVoice()"
               ></v-combobox>
+              <v-card-text>Voice</v-card-text>
               <v-autocomplete
-                label="Voice"
                 v-model="voice"
                 solo
                 :items="filterVoiceItems"
