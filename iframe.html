@@ -491,8 +491,8 @@
             >
               <v-card-title>Voice Reading</v-card-title>
               <p
-                :style="'padding:4px;background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
-                class="message message-out"
+                :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
+                class="pa-4 message message-out"
               >
                 {{dialogMessageRec}}
               </p>
@@ -503,10 +503,12 @@
                 indeterminate
                 height="10"
               ></v-progress-linear>
-              <p class="message message-in">{{dialogMessage}}</p>
+              <p v-show="dialogMessage" class="pa-4 message message-in">
+                {{dialogMessage}}
+              </p>
               <v-btn
                 :color="siteSetting.bgColor"
-                :style="'padding:4px;position:absolute;bottom:10px;width: calc(100% - 24px);color:' + siteSetting.fontColor"
+                :style="'position:absolute;bottom:10px;width: calc(100% - 24px);color:' + siteSetting.fontColor"
                 large
                 @click="textToSpeech(dialogMessage);dialog2 = false"
                 >OK</v-btn
