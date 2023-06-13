@@ -498,7 +498,8 @@
               ></v-progress-linear>
               <v-card-text> {{youMessage}} </v-card-text>
               <v-progress-linear
-                :style="'background-color:' + siteSetting.bgColor"
+                v-show="!dialogMessage"
+                :style="'width: 60%;background-color:' + siteSetting.bgColor"
                 indeterminate
                 height="6"
               ></v-progress-linear>
