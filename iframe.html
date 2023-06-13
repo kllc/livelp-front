@@ -417,24 +417,44 @@
         </v-container>
       </template>
       <template v-if="app=='chat' && dialog">
-          <v-card
-            color="primary"
-            style="position:relative;margin: 80px 20px ;left: 0;top: 0;width: calc( 100dvw - 40px ) ;height: calc( 100dvh - 160px );"
-          >
-          <v-card-title>
-            Voice 
-          </v-card-title>
-          <v-card-text>
-            {{youMessage}}
-          </v-card-text>
-          <v-card-text>
-            {{dialogMessage}}
-          </v-card-text>
-          <v-container style="position: absolute;bottom: 0;">            
-            <v-btn :color="siteSetting.bgColor" :style="'color:' + siteSetting.fontColor" large @click="textToSpeech(dialogMessage);dialog = false">OK</v-btn>
+        <v-card
+          color="primary"
+          style="
+            position: relative;
+            margin: 80px 20px;
+            left: 0;
+            top: 0;
+            width: calc(100dvw - 40px);
+            height: calc(100dvh - 160px);
+          "
+        >
+          <v-card-title> Voice </v-card-title>
+          <v-combobox
+            v-model="lang"
+            solo
+            :items="langItems"
+            item-text="display"
+            item-value="value"
+            @change="changeVoice()"
+          ></v-combobox>
+          <v-autocomplete
+            v-model="voice"
+            solo
+            :items="filterVoiceItems"
+          ></v-autocomplete>
+          <v-card-text> {{youMessage}} </v-card-text>
+          <v-card-text> {{dialogMessage}} </v-card-text>
+          <v-container style="position: absolute; bottom: 0">
+            <v-btn
+              :color="siteSetting.bgColor"
+              :style="'color:' + siteSetting.fontColor"
+              large
+              @click="textToSpeech(dialogMessage);dialog = false"
+              >OK</v-btn
+            >
           </v-container>
-          </v-card>
-      </template> 
+        </v-card>
+      </template>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
@@ -1098,7 +1118,7 @@
                 author: "me",
               },
             ],
-            dialogMessage:"",
+            dialogMessage: "",
             admin: searchParams.get("admin"),
             chatWidth: "600px",
             timeout: false,
@@ -1107,7 +1127,7 @@
               q: "お問合せ内容をお選びいただくか、ご質問内容をご入力ください。",
               a: [],
             },
-            dialog:false,
+            dialog: false,
           };
         },
         async mounted() {
@@ -1628,16 +1648,14 @@
               setTimeout(function () {
                 self.messages = self.messages.slice(0, -1);
                 self.messages.push(message);
-                if (!this.mic)
-                {
-                  if(self.isSmartPhone())
-                  {
+                if (!this.mic) {
+                  if (self.isSmartPhone()) {
                     self.dialogMessage = message.body;
                     self.dialog = true;
                   } else {
-                    self.textToSpeech(message.body)
+                    self.textToSpeech(message.body);
                   }
-                } 
+                }
                 self.scrollMassage();
               }, 1100);
             }
@@ -1750,39 +1768,38 @@
             this.stopSpeaking();
           },
           async textToSpeech(text) {
-            if (this.speaking ) return;
+            if (this.speaking) return;
             this.speaking = true;
             // this.dialog=true;
 
             // if (!this.player) {
-              // this.player = new this.SpeechSDK.SpeakerAudioDestination();
-              // let self = this;
+            // this.player = new this.SpeechSDK.SpeakerAudioDestination();
+            // let self = this;
 
-              // this.player.onAudioEnd = function (_) {
-              //   self.speaking = false;
-              // };
-              // this.player.onAudioStart = function (_) {
-              //   self.speaking = true;
-              // };
+            // this.player.onAudioEnd = function (_) {
+            //   self.speaking = false;
+            // };
+            // this.player.onAudioStart = function (_) {
+            //   self.speaking = true;
+            // };
             // } else {
             //   this.player.resume()
             // }
             // this.startSynthesizer()
 
             let player = new this.SpeechSDK.SpeakerAudioDestination();
-            
+
             let speechConfig =
               this.SpeechSDK.SpeechConfig.fromAuthorizationToken(
                 this.apiKey,
                 this.region
               );
-            
+
             // let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
             //   this.player
             // );
-            let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
-              player
-            );
+            let audioConfig =
+              this.SpeechSDK.AudioConfig.fromSpeakerOutput(player);
 
             // this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
             //   speechConfig,
@@ -1815,7 +1832,7 @@
               await synthesizer.speakSsmlAsync(ssml, (result) => {
                 this.speaking = false;
                 synthesizer.close();
-                // this.synthesizer.close(()=>{this.startSynthesizer()})                
+                // this.synthesizer.close(()=>{this.startSynthesizer()})
                 // this.synthesizer = undefined;
                 // this.synthesizer.dispose(true);
               });
@@ -1835,7 +1852,7 @@
           //         this.apiKey,
           //         this.region
           //       );
-              
+
           //     let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
           //       this.player
           //     );
