@@ -1849,7 +1849,6 @@
                 console.error("Error stopping recognition: " + err);
               }
             );
-            this.stopSpeaking();
           },
           async textToSpeech(text) {
             if (this.speaking) return;
@@ -1955,11 +1954,11 @@
           //     // this.synthesizer.dispose(false);
           //   // }
           // },
-          stopSpeaking() {
-            if (this.player) {
-              this.player.pause();
-              this.speaking = false;
-            }
+          // stopSpeaking() {
+          //   if (this.player) {
+          //     this.player.pause();
+          //     this.speaking = false;
+          //   }
           },
           changeVoice() {
             let items = this.voiceItems.filter((item) => {
