@@ -1851,7 +1851,7 @@
             );
             if (this.player) {
               this.speaking = false;
-              this.player.pause();
+              this.player.mute();
             }
           },
           async textToSpeech(text) {
@@ -1871,7 +1871,7 @@
                 self.speaking = true;
               };
             } else {
-              this.player.resume();
+              this.player.unmute();
             }
 
             // let player = new this.SpeechSDK.SpeakerAudioDestination();
