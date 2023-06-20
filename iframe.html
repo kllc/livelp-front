@@ -502,12 +502,15 @@
                 {{dialogMessageRec}}
               </p>
               <div class="my-4"></div>
-              <v-progress-linear
+              <!-- <v-progress-linear
                 v-show="!dialogMessage"
                 :style="'margin-left:auto; margin-right:auto; width: 60%;background-color:' + siteSetting.bgColor"
                 indeterminate
                 height="10"
-              ></v-progress-linear>
+              ></v-progress-linear> -->
+              <p v-show="!dialogMessage" class="message message-in">
+                <img width='40' src='https://livelp.net/ten.gif' style='margin:5px 5px;'></img>
+              </p>
               <p v-show="dialogMessage" class="message message-in">
                 {{dialogMessage}}
               </p>
