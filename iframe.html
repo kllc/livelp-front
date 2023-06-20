@@ -493,7 +493,7 @@
               <v-card-title
                 class="mb-4"
                 :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
-                >Voice Reading</v-card-title
+                ><span v-show="!dialogMessage">Processing...</span><span v-show="dialogMessage">Process Complete</span></v-card-title
               >
               <p
                 :style="'background-color: ' + siteSetting.bgColor + ';color: ' + siteSetting.fontColor"
