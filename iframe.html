@@ -1850,8 +1850,8 @@
               }
             );
             if (this.player) {
+              this.player.pause();
               this.speaking = false;
-              this.player.mute();
             }
           },
           async textToSpeech(text) {
@@ -1871,7 +1871,7 @@
                 self.speaking = true;
               };
             } else {
-              this.player.unmute();
+              // this.player.resume();
             }
 
             // let player = new this.SpeechSDK.SpeakerAudioDestination();
