@@ -1473,7 +1473,6 @@
                   this.messages = data.data;
                   this.json_chat();
                 }
-                this.sending = false;
                 // this.scrollMassage()
                 // this.messages =Object.assign({},data.data)
                 break;
@@ -1713,6 +1712,7 @@
                 self.messages = self.messages.slice(0, -1);
                 self.json_excec();
                 self.scrollMassage();
+                self.sending = false
               }, 1100);
             } catch (error) {
               let self = this;
@@ -1728,6 +1728,7 @@
                   }
                 }
                 self.scrollMassage();
+                self.sending = false
               }, 1100);
             }
           },
