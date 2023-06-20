@@ -1849,8 +1849,10 @@
                 console.error("Error stopping recognition: " + err);
               }
             );
-            this.speaking = false;
-            this.player.pause();
+            if (this.player) {
+              this.speaking = false;
+              this.player.pause();
+            }
           },
           async textToSpeech(text) {
             if (this.speaking) return;
