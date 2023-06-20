@@ -1860,7 +1860,7 @@
             this.stopRecognition();
             // this.dialog=true;
 
-            if (!this.player) {
+            // if (!this.player) {
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               let self = this;
 
@@ -1870,9 +1870,9 @@
               this.player.onAudioStart = function (_) {
                 self.speaking = true;
               };
-            } else {
+            // } else {
               // this.player.resume();
-            }
+            // }
 
             // let player = new this.SpeechSDK.SpeakerAudioDestination();
 
