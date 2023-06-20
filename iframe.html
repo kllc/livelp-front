@@ -1864,12 +1864,12 @@
               this.player = new this.SpeechSDK.SpeakerAudioDestination();
               // let self = this;
 
-              // this.player.onAudioEnd = function (_) {
-              //   self.speaking = false;
-              // };
-              // this.player.onAudioStart = function (_) {
-              //   self.speaking = true;
-              // };
+              this.player.onAudioEnd = function (_) {
+                self.speaking = false;
+              };
+              this.player.onAudioStart = function (_) {
+                self.speaking = true;
+              };
             } else {
               this.player.resume();
             }
@@ -1921,7 +1921,7 @@
             try {
               // await synthesizer.speakTextAsync(text)
               await synthesizer.speakSsmlAsync(ssml, (result) => {
-                this.speaking = false;
+                // this.speaking = false;
                 synthesizer.close();
                 // this.synthesizer.close(()=>{this.startSynthesizer()})
                 // this.synthesizer = undefined;
@@ -1930,7 +1930,7 @@
               this.startRecognition();
             } catch (err) {
               console.error("Error synthesizing speech:", err);
-              this.speaking = false;
+              // this.speaking = false;
               // this.synthesizer.pause();
               // this.synthesizer.close()
             } finally {
