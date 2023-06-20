@@ -1849,6 +1849,8 @@
                 console.error("Error stopping recognition: " + err);
               }
             );
+            this.speaking = false;
+            this.player.pause();
           },
           async textToSpeech(text) {
             if (this.speaking) return;
@@ -1856,22 +1858,22 @@
             this.stopRecognition();
             // this.dialog=true;
 
-            // if (!this.player) {
-            // this.player = new this.SpeechSDK.SpeakerAudioDestination();
-            // let self = this;
+            if (!this.player) {
+              this.player = new this.SpeechSDK.SpeakerAudioDestination();
+              // let self = this;
 
-            // this.player.onAudioEnd = function (_) {
-            //   self.speaking = false;
-            // };
-            // this.player.onAudioStart = function (_) {
-            //   self.speaking = true;
-            // };
-            // } else {
-            //   this.player.resume()
-            // }
-            // this.startSynthesizer()
+              // this.player.onAudioEnd = function (_) {
+              //   self.speaking = false;
+              // };
+              // this.player.onAudioStart = function (_) {
+              //   self.speaking = true;
+              // };
+            } else {
+              this.player.resume();
+            }
+            this.startSynthesizer();
 
-            let player = new this.SpeechSDK.SpeakerAudioDestination();
+            // let player = new this.SpeechSDK.SpeakerAudioDestination();
 
             // player.onAudioEnd = function (_) {
             //   this.speaking = false;
@@ -1883,11 +1885,11 @@
                 this.region
               );
 
-            // let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
-            //   this.player
-            // );
-            let audioConfig =
-              this.SpeechSDK.AudioConfig.fromSpeakerOutput(player);
+            let audioConfig = this.SpeechSDK.AudioConfig.fromSpeakerOutput(
+              this.player
+            );
+            // let audioConfig =
+            //   this.SpeechSDK.AudioConfig.fromSpeakerOutput(player);
 
             // this.synthesizer = new this.SpeechSDK.SpeechSynthesizer(
             //   speechConfig,
